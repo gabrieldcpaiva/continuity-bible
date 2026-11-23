@@ -342,3 +342,25 @@ TRACKER_COLUMNS = [
     ("Handoff", "Watch-outs"),
     ("Status", "Row status (F / C / U / N/A)"),
 ]
+
+
+# --------------------------------------------------------------- teaching lines
+# One weak handoff line and one strong one. Used by the PDF (Part 1) and the site,
+# so the two editions cannot drift apart.
+HANDOFF_WEAK = "same look as shot 3, a bit darker, she is tense"
+
+HANDOFF_STRONG_LINES = [
+    "CH-01, V1 cardigan buttoned to the third button, sleeves at the wrist",
+    "L1 lamp lit red, corridor strip dark, door frame-right",
+    "P-01a mug upright left of the script, headphones on, pencil out of shot",
+    "camera south of the desk at (0.65, 0.45), medium close-up, she looks off-lens",
+    "frame-right · hands off to shot 4: same frame, mug still full",
+]
+
+# Fill-in template a user can copy into their notes. Blanks are deliberate.
+HANDOFF_SKELETON = (
+    "CH-01 · V1 [the fastening state] · L1 [what is lit, what is off] · "
+    "P-01a [prop state, frame side] · [hands: which one holds what] · "
+    "[two landmarks with their frame side] · camera [side of the line] · "
+    "[framing size] · [where they look] · hands off to shot [N]: [what must be identical]"
+)

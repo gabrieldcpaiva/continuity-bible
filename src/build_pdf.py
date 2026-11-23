@@ -315,7 +315,8 @@ def colophon_page():
     f = [PageBreak(), Paragraph("The fine print", T.ST["h1"]), Spacer(1, 2)]
     f.append(Paragraph(T.inline(
         "**The Continuity Bible**, version 1.0, November 2026. A six-shot continuity handoff system for independent AI filmmakers. "
-        "The proposed price is US$29, and it is a test price: no sales data existed at the time of writing."
+        "The proposed price is US$29, and it is a test price: no sales data existed at the time of writing. "
+        "If this copy reached you free, that is the intended use — nothing is owed, and nothing here is a paywall."
     ), T.ST["body"]))
     f.append(Paragraph("How you may use it", T.ST["h2"]))
     for it in [

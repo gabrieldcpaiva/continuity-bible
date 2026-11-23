@@ -1,0 +1,5 @@
+Code,Name,What it means,When you use it
+F,Fixed,Locked for the whole sequence. Copy it into every shot word for word.,"The field is part of identity, or a variant is in force and this field is not changing."
+C,Changed intentionally,This shot deliberately differs from the one before it. The change has a code.,"Wardrobe, condition, props, light or dressing shift on purpose. Never write C without the code."
+U,Unresolved,"You have not decided yet. It is allowed to stay open, but not silently.",A choice is deferred. Write what you will accept if the generation makes its own choice.
+N/A,Not applicable,The field does not apply to this shot. Say why in three words.,"No face in an insert, no prop in frame, no second character in the scene."

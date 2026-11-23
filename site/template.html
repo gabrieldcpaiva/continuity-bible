@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The mug must stay there — The Continuity Bible</title>
+<meta name="description" content="A free six-shot continuity system for AI filmmakers: three layers, one handoff line per shot, and a 60-second preflight you can run before you press generate. No signup, no API key, no model calls.">
+<meta property="og:title" content="The mug must stay there">
+<meta property="og:description" content="Six generated shots, one scene. The mug must not move. Free continuity system: character sheet, location sheet, six-shot table, 60-second preflight.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e0f11'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='18' fill='%23e2703a' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#0e0f11; --panel:#141619; --panel-2:#191c20; --line:#262a2f; --line-2:#33383f;
+    --ink:#ece9e3; --muted:#a29c92; --dim:#6f6a63;
+    --accent:#e2703a; --accent-2:#f2a37c; --good:#7fae8c;
+    --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;background-image:radial-gradient(1200px 600px at 80% -10%, #1b1a1d 0%, transparent 60%);}
+  a{color:var(--accent-2);text-decoration:none;border-bottom:1px solid rgba(226,112,58,.35)}
+  a:hover{border-bottom-color:var(--accent-2)}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .skip{position:absolute;left:-9999px}
+  .skip:focus{left:12px;top:12px;background:var(--accent);color:#111;padding:10px 14px;border-radius:6px;z-index:9}
+  header.top{border-bottom:1px solid var(--line);background:rgba(14,15,17,.85);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)}
+  header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:11px;padding-bottom:11px}
+  .brand{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+  .brand b{color:var(--accent)}
+  .top a.mini{font-family:var(--mono);font-size:12px;letter-spacing:.06em;border:1px solid var(--line-2);border-radius:999px;padding:6px 12px;color:var(--ink);border-bottom:1px solid var(--line-2)}
+  .top a.mini:hover{border-color:var(--accent);color:var(--accent-2)}
+
+  .hero{padding:74px 0 54px;border-bottom:1px solid var(--line)}
+  .hero .kicker{margin-bottom:22px;color:var(--accent)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.02em;margin:0 0 22px}
+  h1 em{font-style:italic;color:var(--accent-2)}
+  .lede{font-size:clamp(18px,2.2vw,22px);color:#d8d3ca;max-width:46ch;margin:0 0 16px}
+  .sub{color:var(--muted);max-width:56ch;margin:0}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 0}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;letter-spacing:.04em;
+    padding:13px 18px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#160d07;font-weight:600;border-bottom:1px solid var(--accent)}
+  .btn:hover{filter:brightness(1.06);color:#160d07}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line-2)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent-2)}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:30px;font-family:var(--mono);font-size:11.5px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+  .hero-meta span::before{content:"◆ ";color:var(--accent);font-size:9px}
+
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;gap:14px;align-items:baseline;margin-bottom:26px}
+  .num{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.4vw,36px);line-height:1.15;margin:0;letter-spacing:-.01em}
+  h3{font-family:var(--sans);font-size:15px;letter-spacing:.02em;margin:0 0 8px}
+  p{margin:0 0 16px;color:#cfc9c0}
+  p.muted{color:var(--muted)}
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+  @media (max-width:780px){.cols{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .card .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:6px}
+  .card p{font-size:14.5px;margin:0;color:var(--muted)}
+  .card .eg{display:block;margin-top:12px;font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.7}
+
+  /* preflight */
+  .check-head{display:flex;flex-wrap:wrap;gap:16px;align-items:end;justify-content:space-between;margin-bottom:20px}
+  .shotbox{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .shotbox input{width:64px;background:var(--panel);border:1px solid var(--line-2);color:var(--ink);font-family:var(--mono);font-size:14px;padding:8px 10px;border-radius:6px}
+  .counter{font-family:var(--mono);font-size:13px;color:var(--accent-2);min-height:22px}
+  .reset{background:none;border:1px solid var(--line-2);color:var(--muted);font-family:var(--mono);font-size:11.5px;
+    letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;border-radius:6px;cursor:pointer}
+  .reset:hover{border-color:var(--accent);color:var(--accent-2)}
+  .checks{display:grid;gap:2px;border-top:1px solid var(--line)}
+  .check{display:grid;grid-template-columns:30px 1fr;gap:12px;padding:13px 4px;border-bottom:1px solid var(--line)}
+  .check input{appearance:none;-webkit-appearance:none;width:20px;height:20px;margin-top:3px;border:1.5px solid var(--line-2);
+    border-radius:4px;background:var(--panel);cursor:pointer;position:relative;flex:0 0 auto}
+  .check input:checked{background:var(--accent);border-color:var(--accent-2)}
+  .check input:checked::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#160d07;font-size:14px;font-weight:700}
+  .check input:focus-visible,button:focus-visible,.shotbox input:focus-visible{outline:3px solid #7fb3ab;outline-offset:2px}
+  .check label{cursor:pointer;display:block}
+  .check .t,.check .d,.check .why{display:block}
+  .check .t{font-weight:600;font-size:15.5px;color:var(--ink)}
+  .check .t .n{font-family:var(--mono);color:var(--accent);font-weight:500;margin-right:8px;font-size:12px}
+  .check .d{font-size:14px;color:var(--muted);margin-top:2px}
+  .check .why{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-top:5px}
+  .check.done .t{color:var(--muted)}
+  .check.done .why{opacity:.55}
+  .done-note{margin-top:18px;font-family:var(--mono);font-size:12.5px;color:var(--good);min-height:20px}
+
+  /* handoff */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+  @media (max-width:780px){.split{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden}
+  .panel header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .panel header .lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .panel.bad header .lab{color:#c9765a}
+  .panel.good header .lab{color:var(--good)}
+  pre{margin:0;padding:16px;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#d9d3c9;white-space:pre-wrap;overflow-wrap:anywhere}
+  .panel.bad pre{color:#a9a29a}
+  .copy{background:none;border:1px solid var(--line-2);color:var(--muted);font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:5px;cursor:pointer}
+  .copy:hover{border-color:var(--accent);color:var(--accent-2)}
+  .copy.done{border-color:var(--good);color:var(--good)}
+  .skeleton{margin-top:16px;background:var(--panel);border:1px dashed var(--line-2);border-radius:12px;padding:16px}
+  .skeleton .lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  .skeleton code{font-family:var(--mono);font-size:12.5px;color:#cfc9c0;line-height:1.8}
+
+  /* downloads */
+  .files{display:grid;gap:10px;margin-top:24px}
+  .file{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:15px 18px}
+  .file:hover{border-color:var(--line-2)}
+  .file .name{font-family:var(--mono);font-size:13px;color:var(--ink)}
+  .file .what{font-size:13.5px;color:var(--muted);margin-top:2px}
+  .file .sz{font-family:var(--mono);font-size:11px;color:var(--dim);white-space:nowrap}
+  .file a{display:block;color:inherit;border:0}
+
+  /* seam */
+  .codes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+  @media (max-width:780px){.codes{grid-template-columns:1fr}}
+  .code-card{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:16px;background:var(--panel)}
+  .code-card .c{font-family:var(--mono);font-size:16px;color:var(--accent-2);margin-bottom:6px}
+  .code-card p{font-size:13.5px;margin:0;color:var(--muted)}
+
+  footer{padding:56px 0 70px;color:var(--muted);font-size:14px}
+  footer h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+  footer .grid{display:grid;grid-template-columns:1.4fr 1fr;gap:34px}
+  @media (max-width:780px){footer .grid{grid-template-columns:1fr}}
+  footer p{margin:0 0 12px;font-size:13.5px}
+  .stamp{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.08em;margin-top:28px;border-top:1px solid var(--line);padding-top:18px}
+
+  @media print{
+    body{background:#fff;color:#111;font-size:11pt}
+    header.top,.cta,.hero-meta,.reset,.copy,.skip,footer .grid,section#downloads,section#seam{display:none}
+    .hero{padding:0 0 12pt;border:0}
+    h1{font-size:28pt}
+    section{border:0;padding:10pt 0;break-inside:avoid}
+    .checks{border-top:1pt solid #999}
+    .check{border-bottom:1pt solid #ddd;padding:7pt 0}
+    .check .why{color:#555}
+    .check input{border:1pt solid #333;background:#fff}
+    .check input:checked{background:#fff}
+    .check input:checked::after{color:#111}
+    a{color:#111;border:0}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#preflight">Skip to the one-minute check</a>
+
+<header class="top">
+  <div class="wrap">
+    <span class="brand">The Continuity Bible <b>v__VERSION__</b></span>
+    <a class="mini" href="#downloads">Get the files ↓</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Free · no signup · no api key · no model calls</p>
+      <h1>The mug must<br><em>stay there.</em></h1>
+      <p class="lede">Six generated shots, one scene. The face, the label, the mug, the light, the side of the room.
+      Six chances for a model to quietly change one of them and cost you a night.</p>
+      <p class="sub">This is the piece of paper that stops it — three layers, one handoff line between every pair of
+      shots, and a check you can run in sixty seconds before you press generate. It's a document, not an app. It
+      works with whatever you generate in.</p>
+      <div class="cta">
+        <a class="btn" href="#preflight">Run the one-minute check</a>
+        <a class="btn ghost" href="files/the-continuity-bible.pdf" download>Get the __PAGES__-page PDF</a>
+      </div>
+      <div class="hero-meta">
+        <span>__PAGES__ pages</span><span>__CHECKS__ checks</span><span>6 shots per table</span><span>works offline</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <div class="sec-head"><span class="num">01</span><h2>You do not have a model problem. You have a nobody-wrote-it-down problem.</h2></div>
+      <p>You can prompt beautifully and still get six different films. Shot 1 has the label facing camera; shot 4 has it
+      backwards. Shot 2 has the mug on the left; shot 5 has it on the right, full again. Nothing drifted because the
+      model is bad — it drifted because the only place that information lived was your head, and your head was busy.</p>
+      <p>So write it down once, before you generate, in three layers. Then every shot starts by copying the layer above
+      it instead of describing it again from memory.</p>
+
+      <div class="cols">
+        <div class="card">
+          <div class="tag">Layer 1 · identity</div>
+          <h3>What must never change</h3>
+          <p>Five face anchors, five fixed landmarks, the time band. Written once, pasted word for word, never paraphrased.</p>
+          <span class="eg">brow scar, right · mole, left cheek · bob tucked right ear only<br>door frame-right · corkboard top-left</span>
+        </div>
+        <div class="card">
+          <div class="tag">Layer 2 · variant</div>
+          <h3>What changed on purpose</h3>
+          <p>Every deliberate change gets a code, a cause and an end. An uncoded change is drift you have not noticed yet.</p>
+          <span class="eg">V2 cardigan open, from shot 5<br>P-01b mug tipped, ring on the blotter<br>L2 lamp off, corridor lit</span>
+        </div>
+        <div class="card">
+          <div class="tag">Layer 3 · shot state</div>
+          <h3>What is true in this shot</h3>
+          <p>Action, body position, hands, prop states, framing, and the line that hands all of it to the next shot.</p>
+          <span class="eg">centre-right, 3/4 frame-left · MCU<br>pencil in the left hand, never the right<br>hands off to shot 5: same frame, mug full</span>
+        </div>
+      </div>
+
+      <p style="margin-top:26px" class="muted">Every field carries one of four letters: <b style="color:var(--ink)">F</b> fixed,
+      <b style="color:var(--ink)">C</b> changed on purpose (name the code), <b style="color:var(--ink)">U</b> unresolved
+      (say what you'll accept), <b style="color:var(--ink)">N/A</b> not applicable (say why). Letters, not colours, so it
+      survives a greyscale print and a colour-blind check.</p>
+    </div>
+  </section>
+
+  <section id="preflight">
+    <div class="wrap">
+      <div class="sec-head"><span class="num">02</span><h2>The one-minute check</h2></div>
+      <p>Tick what is true for the shot in front of you. Leave one blank and the counter keeps it honest. This is the
+      preflight from the book, live — it saves in your browser, and nothing is sent anywhere.</p>
+
+      <div class="check-head">
+        <div class="shotbox">
+          <label for="shotno">Shot</label>
+          <input id="shotno" type="text" inputmode="numeric" value="1" aria-label="Shot number">
+          <span id="counter" class="counter" role="status" aria-live="polite">0 of __CHECKS__ checked</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="reset" id="printBtn">Print this</button>
+          <button type="button" class="reset" id="resetBtn">Reset</button>
+        </div>
+      </div>
+
+      <div class="checks" id="checks">
+__PREFLIGHT_ROWS__
+      </div>
+      <p class="done-note" id="doneNote"></p>
+    </div>
+  </section>
+
+  <section id="handoff">
+    <div class="wrap">
+      <div class="sec-head"><span class="num">03</span><h2>One sentence crosses the cut</h2></div>
+      <p>The handoff line is the only thing that travels from one shot to the next. Most people write a mood. A mood
+      cannot be checked, and a model cannot hold it. Here is the same line written both ways.</p>
+
+      <div class="split">
+        <div class="panel bad">
+          <header><span class="lab">Weak · uncheckable</span></header>
+          <pre>__HANDOFF_WEAK__</pre>
+        </div>
+        <div class="panel good">
+          <header><span class="lab">Strong · copy it</span><button class="copy" type="button" id="copyStrong">Copy</button></header>
+          <pre id="strongLine">__HANDOFF_STRONG__</pre>
+        </div>
+      </div>
+
+      <div class="skeleton">
+        <div class="lab">Your turn — copy the skeleton</div>
+        <code id="skeleton">__SKELETON__</code>
+        <div style="margin-top:12px"><button class="copy" type="button" id="copySkeleton">Copy skeleton</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="seam">
+    <div class="wrap">
+      <div class="sec-head"><span class="num">04</span><h2>The change, end to end</h2></div>
+      <p>The worked example in the book changes three things at one seam — thirty seconds of screen time between shot 4
+      and shot 5 — and traces each change from the shot that starts it to the shot that ends it. That trace is the whole
+      trick: a change is only safe to generate when you can point at every place it is recorded.</p>
+      <div class="codes">
+        <div class="code-card"><div class="c">V2</div><p>Cardigan open, sleeves pushed to the elbows. A silhouette change, readable at medium and wide.</p></div>
+        <div class="code-card"><div class="c">P-01b</div><p>Mug on its side, 20 cm ring on the blotter, never on the paper. A state, not an animation.</p></div>
+        <div class="code-card"><div class="c">L2</div><p>ON AIR lamp dark, corridor strip lit under the door. A switch described as what is off.</p></div>
+      </div>
+      <p style="margin-top:24px" class="muted">The example is invented and the book says so on the colophon. It survives 86
+      mechanical checks for contradictions — order, codes, frame sides, the 1↔6 bookend, the mug run — because an example
+      that contradicts itself teaches the wrong habit.</p>
+    </div>
+  </section>
+
+  <section id="downloads">
+    <div class="wrap">
+      <div class="sec-head"><span class="num">05</span><h2>Take the files</h2></div>
+      <p>Everything is here, free, with no email wall. Print the PDF, or edit the Markdown and make it yours.</p>
+      <div class="files">
+__FILE_ROWS__
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <h3>What this is not</h3>
+        <p>Not a prompt pack, not a model integration, not a promise that your shots will match. Continuity is a
+        production judgement; this is the written record it works from, plus a way to catch the problem before you pay
+        for the shot. No footage, no stock images, no third-party templates.</p>
+        <p>If it saves you one re-generation, it has paid for itself. There is no price on this page and no button to
+        buy it: it's a gift, the same way the rest of this stuff is.</p>
+      </div>
+      <div>
+        <h3>Use it</h3>
+        <p>Print, copy, edit and rename it for your own productions and the people you work with. Don't resell it or
+        republish it as your own template product.</p>
+        <p>Type: Inter, Source Serif 4 and JetBrains Mono, all SIL Open Font License, all embedded in the PDF.</p>
+      </div>
+    </div>
+    <p class="stamp">The Continuity Bible v__VERSION__ · __DATE__ · built from one Markdown source · no trackers, no
+    cookies, no analytics · this page makes no network requests at all</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "cb.preflight.v1";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll("#checks input[type=checkbox]"));
+  var counter = document.getElementById("counter");
+  var note = document.getElementById("doneNote");
+  var shotInput = document.getElementById("shotno");
+  var total = boxes.length;
+
+  function state() {
+    if (window.CB_SITE && window.CB_SITE.state) return window.CB_SITE.state();
+    var s = { shot: shotInput.value, checks: {} };
+    boxes.forEach(function (b) { s.checks[b.id] = b.checked; });
+    return s;
+  }
+
+  function paint() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    boxes.forEach(function (b) { b.closest(".check").classList.toggle("done", b.checked); });
+    counter.textContent = done + " of " + total + " checked" + (done < total ? " · " + (total - done) + " to go" : "");
+    note.textContent = done === total
+      ? "All " + total + ". Now say the handoff line out loud: this shot hands off ___ to shot ___."
+      : "";
+    return done;
+  }
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state())); } catch (e) {}
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      var s = JSON.parse(raw);
+      if (s.shot) shotInput.value = s.shot;
+      boxes.forEach(function (b) { b.checked = !!s.checks[b.id]; });
+    } catch (e) {}
+  }
+
+  boxes.forEach(function (b) {
+    b.addEventListener("change", function () { paint(); save(); });
+  });
+  shotInput.addEventListener("input", save);
+
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    paint();
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    note.textContent = "Cleared. Same shot, fresh eyes.";
+  });
+
+  document.getElementById("printBtn").addEventListener("click", function () { window.print(); });
+
+  function copy(text, btn) {
+    var ok = false;
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      ok = document.execCommand && document.execCommand("copy");
+      document.body.removeChild(ta);
+    } catch (e) { ok = false; }
+    if (ok) {
+      btn.textContent = "Copied";
+      btn.classList.add("done");
+      window.setTimeout(function () { btn.textContent = btn.dataset.idle; btn.classList.remove("done"); }, 1600);
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = "Copied"; btn.classList.add("done");
+      }, function () { btn.textContent = "Select and copy"; });
+    }
+  }
+
+  ["copyStrong", "copySkeleton"].forEach(function (id) {
+    var btn = document.getElementById(id);
+    var src = document.getElementById(id === "copyStrong" ? "strongLine" : "skeleton");
+    btn.dataset.idle = btn.textContent;
+    btn.addEventListener("click", function () { copy(src.textContent.trim(), btn); });
+  });
+
+  // exposed for the automated test; harmless in a browser
+  window.CB_SITE = { paint: paint, boxes: boxes, key: KEY };
+
+  load();
+  paint();
+})();
+</script>
+</body>
+</html>

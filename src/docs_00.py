@@ -3,7 +3,7 @@
 from dsl import (doc, h1, h2, h3, p, lead, ul, ol, table, callout, fill,
                  checklist, kv, divider, pagebreak, formula, spacer, stageplan,
                  pdf_only)
-from schema import PRODUCT
+from schema import PRODUCT, HANDOFF_WEAK, HANDOFF_STRONG_LINES
 
 BLOCKS = [
     lead(
@@ -182,13 +182,10 @@ BLOCKS = [
         "people write badly — as a mood, not as a list of things the next frame must contain."
     ),
     formula([
-        "WEAK      same look as shot 3, a bit darker, she is tense",
+        "WEAK      " + HANDOFF_WEAK,
         "",
-        "STRONG    CH-01, V1 cardigan buttoned to the third button, sleeves at the wrist",
-        "          L1 lamp lit red, corridor strip dark, door frame-right",
-        "          P-01a mug upright left of the script, headphones on, pencil out of shot",
-        "          camera south of the desk at (0.65, 0.45), medium close-up, she looks off-lens",
-        "          frame-right · hands off to shot 4: same frame, mug still full",
+        *[("STRONG    " if i == 0 else "          ") + line
+          for i, line in enumerate(HANDOFF_STRONG_LINES)],
     ]),
     p(
         "Both lines are true. Only one of them can be checked. Notice that the strong line has no adjectives about mood: mood is "

@@ -1,5 +1,116 @@
 # Launch copy in your voice — "the key in the vase, part two"
 
+## 0. The gift post — use this one now that the page exists
+
+You said it: you were never planning to sell this. So don't. There is a live page now, and the post below
+points at it and asks for nothing but a favour. Plain text for Skool's editor, one link, no price anywhere.
+
+**Title:** The mug must stay there (free continuity system for six-shot scenes)
+
+---
+
+You know the thing that keeps happening. Shot 1 has the label facing camera. Shot 4 has it backwards. Shot 2
+has the mug on the left, shot 5 has it on the right and full again. Nothing's wrong with your prompting. The
+only place that information lived was your head, and your head was busy.
+
+I'm a photographer and cinematographer who wandered into AI, and the thing that pains me in this room isn't
+the talent — you lot have eyes. It's watching people pay for six subscriptions and then post a sequence
+where the product changes halfway through. Darling, the mug must stay there. That's the money shot.
+
+[YOUR TWO SENTENCES HERE — the drift that actually cost you a night.]
+
+So I wrote it down. It's free, there's no email wall, and it works with whatever you generate in:
+
+[LIVE LINK]
+
+What's on the page:
+
+1. THE ONE-MINUTE CHECK. Fifteen ticks before you press generate. It's live on the page, it saves in your
+browser, and it takes less time than watching the bad take come out. Print it and keep it next to you.
+
+2. THREE LAYERS, TEN LINES. Identity (never changes), variant (changed on purpose, with a code), shot state
+(what's true in this shot). Every shot starts by copying the previous shot's handoff line instead of
+describing it again from memory. That single habit is the product.
+
+3. THE HANDOFF LINE, WRITTEN BOTH WAYS. "A bit darker, she's tense" versus the version that lists the code,
+the prop state, the frame sides and the thing the next shot must inherit. One of them can be checked. Copy
+the strong one and fill in your own.
+
+4. THE FILES. A 43-page PDF, the same seven documents as editable Markdown, a CSV tracker, an offline form,
+and one complete worked example with a change traced end to end. Take all of it.
+
+What it isn't: a prompt pack, a model integration, a promise your shots will match. Continuity is a
+judgement. This is the paper it works from, so you can catch the problem before you pay for the shot.
+
+One favour, if you've got a spare hour this week: if you use it and a field is stupid, tell me here. I'd
+rather fix it in public than have you nod politely and never open it again.
+
+Take what you need, duplicate what works, and don't walk 30 minutes around the block when the gate is open.
+
+Gxx
+
+---
+
+**Two things to check before you post it:** put the real URL in `[LIVE LINK]`, and only keep the "fifteen
+ticks" line if the page is deployed (it is, once you drop `site/` on Netlify). If you'd rather post before
+deploying, cut item 1 and send the PDF instead.
+
+
+---
+
+You know the thing that keeps happening. Shot 1 has the label facing camera. Shot 4 has it backwards. Shot 2
+has the mug on the left, shot 5 has it on the right and full again. Nothing's wrong with your prompting. The
+only place that information lived was your head, and your head was busy.
+
+I'm a photographer and cinematographer who wandered into AI, and the thing that pains me in this room isn't
+the talent — you lot have eyes. It's watching people pay for six subscriptions and then post a sequence
+where the product changes halfway through. Darling, the mug must stay there. That's the money shot.
+
+[YOUR TWO SENTENCES HERE — the drift that actually cost you a night.]
+
+So I wrote it down. It's free, there's no email wall, and it works with whatever you generate in:
+
+[LIVE LINK]
+
+What's on the page:
+
+1. THE ONE-MINUTE CHECK. Fifteen ticks before you press generate. It's live on the page, it saves in your
+browser, and it takes less time than watching the bad take come out. Print it and keep it next to you.
+
+2. THREE LAYERS, TEN LINES. Identity (never changes), variant (changed on purpose, with a code), shot state
+(what's true in this shot). Every shot starts by copying the previous shot's handoff line instead of
+describing it again from memory. That single habit is the product.
+
+3. THE HANDOFF LINE, WRITTEN BOTH WAYS. "A bit darker, she's tense" versus the version that lists the code,
+the prop state, the frame sides and the thing the next shot must inherit. One of them can be checked. Copy
+the strong one and fill in your own.
+
+4. THE FILES. A 43-page PDF, the same seven documents as editable Markdown, a CSV tracker, an offline form,
+and one complete worked example with a change traced end to end. Take all of it.
+
+What it isn't: a prompt pack, a model integration, a promise your shots will match. Continuity is a
+judgement. This is the paper it works from, so you can catch the problem before you pay for the shot.
+
+One favour, if you've got a spare hour this week: if you use it and a field is stupid, tell me here. I'd
+rather fix it in public than have you nod politely and never open it again.
+
+Take what you need, duplicate what works, and don't walk 30 minutes around the block when the gate is open.
+
+Gxx
+
+---
+
+**Two things to check before you post it:** put the real URL in `[LIVE LINK]`, and only keep the "fifteen
+ticks" line if the page is deployed (it is, once you drop `site/` on Netlify). If you'd rather post before
+deploying, cut item 1 and send the PDF instead.
+
+---
+
+**Everything below (sections 1–8) is the version for the day you decide to charge for something.** You don't
+need it now. It stays because the thinking is done, and because a second product later will need exactly this.
+
+---
+
 Written for Skool's editor, which eats Markdown. **No `#`, no `**`, no `-` bullets.** Short paragraphs, plain
 capitals for the odd emphasis, numbers for lists. Paste as-is.
 
