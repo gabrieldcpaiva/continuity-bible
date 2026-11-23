@@ -5,6 +5,10 @@ today**: v1.0, 43 pages, no users yet, US$29 test price, no testimonials. Do not
 
 Placeholders in `[brackets]`. Keep your own voice; cut anything that sounds like a funnel.
 
+**Read this first:** `launch/skool-post-gxx-voice.md` — the same launch written in the author's own voice
+(plain text for Skool's editor, "key in the vase" framing) plus the free-for-the-room / $29-for-strangers
+pricing model. Use that post; use this file for the DMs, replies and measurement.
+
 ---
 
 ## 1. The strategy in one page
