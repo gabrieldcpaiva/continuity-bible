@@ -119,7 +119,22 @@ Then stop talking. Do not justify the price, do not offer a discount, do not say
   the same three after a change; they have already been shown the old version.
 - **Stop:** record it here and say so plainly in the product README. A stop is a result.
 
-## 11. Test log (fill in — do not reconstruct later)
+## 11. Sourcing from a community you already serve
+
+If the three participants come from a community where you are known, say so in the write-up, and treat the
+result as **soft evidence**, not market proof:
+
+- **The bias is toward yes.** People who like you will say something kind. Only count a **clear yes**
+  (offers to pay, asks how, names a date) or a **named sequence**.
+- **Aim for two insiders and one outsider.** Sourcing all three from your own community is allowed, but
+  write "3 of 3 from my community" in the record and discount accordingly.
+- **Ask behaviour, not opinion.** "Which sequence, and when?" beats "does this look useful?".
+- **Do not merge these three with the usability testers.** Different question, different record; if a
+  person did both, they count once in each activity only because both were documented separately.
+
+Paste-ready community copy and DM scripts: `launch/skool-launch-kit.md`.
+
+## 12. Test log (fill in — do not reconstruct later)
 
 | Date | Participants (n) | Buy at $29 | Use on a named sequence | Outcome | What was shown | Notes |
 | --- | --- | --- | --- | --- | --- | --- |

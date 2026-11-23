@@ -22,6 +22,10 @@ unless they complete both activities and both are recorded separately.
 - Explicitly ask permission to take notes and to quote them anonymously. If they decline notes, do not run
   the session.
 
+**Sourcing.** Community members who volunteer after reading a post are the easiest honest source. If they
+already know you, note it — it affects how much help they will ask for. Copy for recruiting them:
+`launch/skool-launch-kit.md` §4.
+
 ## 2. What to send before the session (10 minutes of their time)
 
 Send only these three things, as files:
