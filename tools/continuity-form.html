@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Continuity Bible — offline continuity form</title>
+<style>
+  :root{
+    --ink:#17212B; --muted:#5C6775; --faint:#8A939E; --rule:#D3D9DF;
+    --paper:#FFFFFF; --tint:#F4F6F5; --accent:#13504A; --accent-tint:#E8EFED;
+    --clay:#A4562A; --amber:#8A5A11; --green:#1D6B4A;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:#EDEFEE; color:var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size:16px; line-height:1.5;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 16px 80px}
+  header.top{background:var(--accent);color:#fff;padding:28px 0 24px;margin-bottom:22px}
+  header.top .wrap{padding-bottom:0}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin:0 0 6px}
+  h1{font-size:26px;line-height:1.2;margin:0 0 8px;font-weight:700}
+  .sub{color:rgba(255,255,255,.85);margin:0;max-width:62ch}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+  button{
+    font:inherit;font-size:14px;font-weight:600;border-radius:8px;padding:9px 14px;cursor:pointer;
+    border:1px solid transparent;background:#fff;color:var(--accent);
+  }
+  button.secondary{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.45)}
+  button.ghost{background:#fff;color:var(--ink);border:1px solid var(--rule)}
+  button:hover{filter:brightness(.97)}
+  button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, summary:focus-visible{
+    outline:3px solid #7FB3AB; outline-offset:2px;
+  }
+  nav.jump{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0}
+  nav.jump a{
+    font-size:13px;color:var(--accent);text-decoration:none;background:#fff;border:1px solid var(--rule);
+    border-radius:999px;padding:5px 11px;
+  }
+  nav.jump a:hover{background:var(--accent-tint)}
+  section.card{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:22px;margin:0 0 18px}
+  h2{font-size:19px;margin:0 0 4px}
+  h2 .num{color:var(--accent);margin-right:8px}
+  .hint{color:var(--muted);font-size:14px;margin:0 0 16px}
+  fieldset{border:0;padding:0;margin:0 0 18px}
+  legend{font-weight:700;font-size:14px;padding:0;margin:0 0 10px;color:var(--accent)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:760px){.grid,.grid.three{grid-template-columns:1fr}}
+  .field{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .field label{font-size:13.5px;font-weight:650}
+  .field .note{font-size:12.5px;color:var(--muted);font-weight:400}
+  input[type=text], textarea, select{
+    font:inherit;font-size:15px;color:var(--ink);background:#fff;
+    border:1px solid #B9C2CA;border-radius:8px;padding:9px 10px;width:100%;
+  }
+  textarea{resize:vertical;min-height:64px;line-height:1.45}
+  .inline{display:flex;gap:6px;align-items:center}
+  .inline select{width:auto;min-width:130px}
+  .statusKey{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+  .statusKey b{color:var(--ink)}
+  details.shot{background:#FBFCFC;border:1px solid var(--rule);border-radius:10px;margin:0 0 12px}
+  details.shot>summary{
+    cursor:pointer;padding:13px 16px;font-weight:700;font-size:15px;display:flex;gap:10px;align-items:center;
+    list-style:none;
+  }
+  details.shot>summary::-webkit-details-marker{display:none}
+  details.shot>summary .chev{color:var(--accent);font-weight:700}
+  details.shot>summary .tag{margin-left:auto;font-size:12.5px;font-weight:600;color:var(--muted)}
+  details.shot[open]>summary{border-bottom:1px solid var(--rule)}
+  details.shot .body{padding:16px}
+  .reghdr{display:grid;grid-template-columns:80px 2.2fr 90px 1.6fr 1.1fr 1fr;gap:8px;font-size:12.5px;color:var(--muted);font-weight:600;margin-bottom:6px}
+  .reghdr.small{grid-template-columns:80px 2.6fr 1.9fr 1fr}
+  .regrow{display:grid;grid-template-columns:80px 2.2fr 90px 1.6fr 1.1fr 1fr;gap:8px;margin-bottom:8px}
+  .regrow.small{grid-template-columns:80px 2.6fr 1.9fr 1fr}
+  @media (max-width:820px){.reghdr,.regrow,.reghdr.small,.regrow.small{grid-template-columns:1fr;gap:4px}
+    .reghdr{display:none}}
+  .checks{display:grid;gap:2px}
+  .check{display:grid;grid-template-columns:24px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid #E7EAED;align-items:start}
+  .check input{margin-top:3px;width:17px;height:17px;accent-color:var(--accent)}
+  .check .t{font-weight:650;font-size:14.5px}
+  .check .d{font-size:13px;color:var(--muted)}
+  .exportBox{display:flex;flex-direction:column;gap:10px}
+  #exportText{min-height:340px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.5}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;
+    padding:10px 16px;border-radius:8px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .18s ease}
+  .toast.show{opacity:1}
+  footer.foot{color:var(--muted);font-size:13px;margin-top:8px}
+  footer.foot strong{color:var(--ink)}
+  .legendBox{background:var(--tint);border-left:4px solid var(--accent);border-radius:6px;padding:12px 14px;margin:0 0 18px;font-size:13.5px}
+  .legendBox b{color:var(--accent)}
+  @media print{
+    body{background:#fff;font-size:11pt}
+    header.top{background:#fff;color:#000;border-bottom:2pt solid #13504A}
+    header.top .kicker,.sub{color:#333}
+    .toolbar,nav.jump,.toast,footer.foot{display:none}
+    section.card{border:0;padding:0;margin:0 0 14pt;break-inside:avoid}
+    details.shot{border:1pt solid #999;break-inside:avoid}
+    details.shot>summary{background:#f2f2f2}
+    input,textarea,select{border:1pt solid #999;min-height:22pt}
+    textarea{min-height:44pt}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <p class="kicker">The Continuity Bible · v1.0</p>
+    <h1>Offline continuity form</h1>
+    <p class="sub">The same fields as the printed sheets, in one page that works with no connection, no account and no
+      install. Fill it in, then use <strong>Build the handoff</strong> to turn it into plain text you can keep, print or paste
+      into your notes.</p>
+    <div class="toolbar">
+      <button type="button" id="btnBuild">Build the handoff</button>
+      <button type="button" class="secondary" id="btnPrint">Print this page</button>
+      <button type="button" class="secondary" id="btnSave">Save draft in this browser</button>
+      <button type="button" class="secondary" id="btnClear">Clear everything</button>
+    </div>
+    <nav class="jump" aria-label="Jump to a section">
+      <a href="#s1">1 · Character</a>
+      <a href="#s2">2 · Location</a>
+      <a href="#s3">3 · Six shots</a>
+      <a href="#s4">4 · Props and open items</a>
+      <a href="#s5">5 · Preflight</a>
+      <a href="#s6">6 · Handoff text</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="legendBox" id="legend">
+    <b>Status markers.</b> Every field you may need to mark takes one of four letters:
+    <b>F</b> fixed · <b>C</b> changed intentionally (name the variant code) · <b>U</b> unresolved (say what you will accept)
+    · <b>N/A</b> not applicable (say why). The letter is the marker; colour is never the only signal.
+  </div>
+
+  <!-- 1 ───────────────────────────────────────────────── CHARACTER -->
+  <section class="card" id="s1">
+    <h2><span class="num">1</span>Character sheet</h2>
+    <p class="hint">One character. Five face anchors, one baseline look, every change coded. Everything here is identity unless a variant says otherwise.</p>
+
+    <div class="grid">
+      <div class="field">
+        <label for="ch_id">Character ID</label>
+        <input type="text" id="ch_id" data-field="char_id" placeholder="CH-01">
+        <span class="note">A short code you will repeat in every shot row.</span>
+      </div>
+      <div class="field">
+        <label for="ch_name">Name in the script</label>
+        <input type="text" id="ch_name" data-field="name_in_script" placeholder="RAE">
+      </div>
+    </div>
+
+    <fieldset style="margin-top:16px">
+      <legend>Who this is</legend>
+      <div class="grid">
+        <div class="field">
+          <label for="ch_role">Role in the scene</label>
+          <textarea id="ch_role" data-field="role_in_scene" placeholder="Who they are and what they want here, in one sentence."></textarea>
+        </div>
+        <div class="field">
+          <label for="ch_age">Age read</label>
+          <input type="text" id="ch_age" data-field="age_read" placeholder="mid-40s">
+          <span class="note">How old they read on screen, not their birth year.</span>
+        </div>
+        <div class="field">
+          <label for="ch_build">Build and posture</label>
+          <textarea id="ch_build" data-field="build_posture" placeholder="Height read, build, and the one posture habit that makes them them."></textarea>
+        </div>
+        <div class="field">
+          <label for="ch_eyes">Eyes</label>
+          <input type="text" id="ch_eyes" data-field="eyes" placeholder="Dark brown. No glasses.">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Five face anchors</legend>
+      <p class="hint" style="margin-top:-4px">Five features a stranger could check at a glance. Structure beats colour: a scar, a mole, a hair tuck, an eyebrow shape.</p>
+      <div class="grid">
+        <div class="field"><label for="a1">Anchor 1</label><input type="text" id="a1" data-field="face_anchor_1"></div>
+        <div class="field"><label for="a2">Anchor 2</label><input type="text" id="a2" data-field="face_anchor_2"></div>
+        <div class="field"><label for="a3">Anchor 3</label><input type="text" id="a3" data-field="face_anchor_3"></div>
+        <div class="field"><label for="a4">Anchor 4</label><input type="text" id="a4" data-field="face_anchor_4"></div>
+        <div class="field"><label for="a5">Anchor 5</label><input type="text" id="a5" data-field="face_anchor_5"></div>
+        <div class="field">
+          <label for="ch_hair">Hair (fixed styling)</label>
+          <input type="text" id="ch_hair" data-field="hair_fixed" placeholder="Length, part, and exactly where it is tucked.">
+        </div>
+        <div class="field">
+          <label for="ch_skin">Skin and complexion</label>
+          <input type="text" id="ch_skin" data-field="skin_complexion" placeholder="Tone read, undertone, marks to keep.">
+        </div>
+        <div class="field">
+          <label for="ch_item">Signature item (optional)</label>
+          <input type="text" id="ch_item" data-field="signature_item" placeholder="The one object worth tracking, and which hand it lives in.">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Baseline look and variants</legend>
+      <div class="field" style="margin-bottom:14px">
+        <label for="ch_v1">V1 — baseline wardrobe</label>
+        <textarea id="ch_v1" data-field="wardrobe_baseline" placeholder="Garment set, fit, colours, fastening state, sleeve length."></textarea>
+      </div>
+      <div class="reghdr" aria-hidden="true"><span>Code</span><span>What changes (structural, glanceable)</span><span>From shot</span><span>Caused by</span><span>Readable at</span><span>Ends at</span></div>
+      <div id="variantRows"></div>
+      <p class="hint" style="margin:10px 0 0">Most scenes need one or two rows. A change nobody can see at the framing you are generating is not a variant.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Three never-change items</legend>
+      <div class="grid three">
+        <div class="field"><label for="nc1">1</label><input type="text" id="nc1" data-field="never_change_1"></div>
+        <div class="field"><label for="nc2">2</label><input type="text" id="nc2" data-field="never_change_2"></div>
+        <div class="field"><label for="nc3">3</label><input type="text" id="nc3" data-field="never_change_3"></div>
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label for="ch_anchorLine">Anchor line — copy this into every prompt</label>
+      <textarea id="ch_anchorLine" data-field="anchor_line" placeholder="CH-01 NAME — anchor one · anchor two · anchor three · anchor four · anchor five. Wearing V1: …"></textarea>
+      <span class="note">One sentence: the five anchors plus the variant code in force. Do not retype it from memory.</span>
+    </div>
+  </section>
+
+  <!-- 2 ───────────────────────────────────────────────── LOCATION -->
+  <section class="card" id="s2">
+    <h2><span class="num">2</span>Location sheet</h2>
+    <p class="hint">One location. Five fixed landmarks, the light sources that exist, and the geography rules that stop a room mirroring between shots.</p>
+
+    <div class="grid">
+      <div class="field">
+        <label for="lo_id">Location ID</label>
+        <input type="text" id="lo_id" data-field="loc_id" placeholder="LOC-01">
+      </div>
+      <div class="field">
+        <label for="lo_name">Location name</label>
+        <input type="text" id="lo_name" data-field="loc_name" placeholder="Studio B">
+      </div>
+      <div class="field">
+        <label for="lo_room">Room read</label>
+        <textarea id="lo_room" data-field="room_read" placeholder="Shape, approximate size, ceiling height, how many ways in or out."></textarea>
+      </div>
+      <div class="field">
+        <label for="lo_palette">Palette and materials</label>
+        <textarea id="lo_palette" data-field="palette_materials" placeholder="Three to five surface colours and textures."></textarea>
+      </div>
+      <div class="field">
+        <label for="lo_time">Time band</label>
+        <input type="text" id="lo_time" data-field="time_band" placeholder="02:40–02:52 · deep night · no windows">
+      </div>
+      <div class="field">
+        <label for="lo_function">Story function</label>
+        <input type="text" id="lo_function" data-field="story_function" placeholder="What this room does to the scene.">
+      </div>
+    </div>
+
+    <fieldset style="margin-top:16px">
+      <legend>Five fixed landmarks</legend>
+      <div class="grid">
+        <div class="field"><label for="l1">Landmark 1</label><input type="text" id="l1" data-field="landmark_1" placeholder="Name · frame position · one identifying detail"></div>
+        <div class="field"><label for="l2">Landmark 2</label><input type="text" id="l2" data-field="landmark_2"></div>
+        <div class="field"><label for="l3">Landmark 3</label><input type="text" id="l3" data-field="landmark_3"></div>
+        <div class="field"><label for="l4">Landmark 4</label><input type="text" id="l4" data-field="landmark_4"></div>
+        <div class="field"><label for="l5">Landmark 5</label><input type="text" id="l5" data-field="landmark_5"></div>
+      </div>
+    </fieldset>
+
+    <div class="grid">
+      <div class="field">
+        <label for="lo_lights">Light sources that exist in the room</label>
+        <textarea id="lo_lights" data-field="light_sources_fixed" placeholder="Every practical light, where it comes from, and what colour it reads."></textarea>
+      </div>
+      <div class="field">
+        <label for="lo_geo">Geography rules</label>
+        <textarea id="lo_geo" data-field="geography_rules" placeholder="Two or three hard rules: what is always frame-left, always frame-right, which side the camera stays on."></textarea>
+      </div>
+    </div>
+
+    <fieldset style="margin-top:16px">
+      <legend>Light states</legend>
+      <div class="reghdr small" aria-hidden="true"><span>Code</span><span>What is lit, what is off</span><span>Shots</span><span>Caused by</span></div>
+      <div id="lightRows"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Three never-change items</legend>
+      <div class="grid three">
+        <div class="field"><label for="lnc1">1</label><input type="text" id="lnc1" data-field="loc_never_change_1"></div>
+        <div class="field"><label for="lnc2">2</label><input type="text" id="lnc2" data-field="loc_never_change_2"></div>
+        <div class="field"><label for="lnc3">3</label><input type="text" id="lnc3" data-field="loc_never_change_3"></div>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- 3 ───────────────────────────────────────────────── SHOTS -->
+  <section class="card" id="s3">
+    <h2><span class="num">3</span>Six shots</h2>
+    <p class="hint">One block per shot, in order. Start every block after the first by copying the previous shot's handoff line into
+      “Inherits from”, then write only what is different.</p>
+    <div id="shotBlocks"></div>
+  </section>
+
+  <!-- 4 ───────────────────────────────────────────────── PROPS -->
+  <section class="card" id="s4">
+    <h2><span class="num">4</span>Hero props and open items</h2>
+    <p class="hint">Only the props you would notice if they changed. Give each one a state code where it changes: P-01a, P-01b.</p>
+    <div class="reghdr small" aria-hidden="true"><span>Prop ID</span><span>What it always is</span><span>States (code · what it is · shots)</span><span>Checked in</span></div>
+    <div id="propRows"></div>
+
+    <fieldset style="margin-top:20px">
+      <legend>Open items — every U mark, with its decision</legend>
+      <div class="reghdr small" aria-hidden="true"><span>U#</span><span>Where</span><span>What is unresolved</span><span>Decision or accepted risk</span></div>
+      <div id="openRows"></div>
+    </fieldset>
+  </section>
+
+  <!-- 5 ───────────────────────────────────────────────── PREFLIGHT -->
+  <section class="card" id="s5">
+    <h2><span class="num">5</span>Preflight for the shot in front of you</h2>
+    <p class="hint">Fifteen checks, one minute. Tick what is true; leave a box blank and write why if something does not apply.</p>
+    <div class="grid" style="margin-bottom:12px">
+      <div class="field">
+        <label for="pf_shot">Shot number</label>
+        <input type="text" id="pf_shot" data-field="preflight_shot" placeholder="5">
+      </div>
+      <div class="field">
+        <label for="pf_note">Blank boxes — why</label>
+        <input type="text" id="pf_note" data-field="preflight_note">
+      </div>
+    </div>
+    <div class="checks" id="preflightChecks"></div>
+
+    <fieldset style="margin-top:18px">
+      <legend>After generating</legend>
+      <div class="grid">
+        <div class="field">
+          <label for="pf_out">What came out</label>
+          <textarea id="pf_out" data-field="drift_what"></textarea>
+        </div>
+        <div class="field">
+          <label for="pf_verdict">Verdict</label>
+          <select id="pf_verdict" data-field="drift_verdict">
+            <option value="">—</option>
+            <option>Kept</option>
+            <option>Drift outside the frame</option>
+            <option>Drift in the anchors</option>
+            <option>Rejected</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="pf_action">Action</label>
+          <select id="pf_action" data-field="drift_action">
+            <option value="">—</option>
+            <option>Re-framed</option>
+            <option>Re-cut to match this shot</option>
+            <option>Re-generated with anchors first</option>
+            <option>Accepted as-is</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- 6 ───────────────────────────────────────────────── EXPORT -->
+  <section class="card" id="s6">
+    <h2><span class="num">6</span>The handoff as plain text</h2>
+    <p class="hint">Everything you typed, in the order you will need it at the machine. Nothing is sent anywhere: this page has no
+      network connection of its own.</p>
+    <div class="exportBox">
+      <div class="toolbar" style="margin:0">
+        <button type="button" class="ghost" id="btnBuild2">Build the handoff</button>
+        <button type="button" class="ghost" id="btnCopy">Copy the text</button>
+        <button type="button" class="ghost" id="btnDownload">Download as .txt</button>
+      </div>
+      <label for="exportText" style="font-size:13.5px;font-weight:650">Your plain-text handoff</label>
+      <textarea id="exportText" spellcheck="false" placeholder="Fill the sections above, then press “Build the handoff”."></textarea>
+      <p class="hint" style="margin:0">Keep this text with the project. It is the version you paste into prompts and the version you
+        correct when a frame disagrees with the plan.</p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p><strong>The Continuity Bible</strong> · offline form v1.0 · part of the six-shot handoff system. Continuity is a production
+      judgment supported by a written record, not an automatic guarantee. Works offline; no accounts, no tracking, no network calls.</p>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var STATUS_OPTIONS = ["F", "C", "U", "N/A"];
+  var STORAGE_KEY = "continuity-bible-v1";
+
+  var PREFLIGHT = [
+    ["Row check", "The shot number and slug match the row I am working from."],
+    ["Identity", "The five face anchors are pasted word for word, in the same order."],
+    ["Never-change list", "The three character items and three location items are in the prompt."],
+    ["Variant code", "The variant in force matches the previous shot, or the change has a code and a cause."],
+    ["Wardrobe", "Same garment set, same fastening state, same sleeve length as the row says."],
+    ["Hair", "Same part, same tuck, same length."],
+    ["Hands and props", "Correct hand, correct prop state code, other hand accounted for."],
+    ["Prop state", "Mug, paper, tools and carried items are in the state the row records."],
+    ["Geography", "Two landmarks named with their frame side; nobody has been mirrored."],
+    ["The line", "The camera is on the same side of the line as the previous shot."],
+    ["Light state", "The light code matches the register, including anything that is off."],
+    ["Time band", "Same time band; nothing in frame records an impossible time."],
+    ["Framing", "Framing size, height, angle and movement match the row."],
+    ["Handoff", "I have read the handoff line aloud: this shot must hand off — to shot —."],
+    ["Open items", "Any U mark in this row is decided, or its accepted risk is written down."]
+  ];
+
+  function el(tag, attrs, children) {
+    var n = document.createElement(tag);
+    if (attrs) for (var k in attrs) {
+      if (k === "text") n.textContent = attrs[k];
+      else if (k === "html") n.innerHTML = attrs[k];
+      else n.setAttribute(k, attrs[k]);
+    }
+    (children || []).forEach(function (c) { n.appendChild(c); });
+    return n;
+  }
+
+  function field(labelText, id, key, opts) {
+    opts = opts || {};
+    var wrap = el("div", { "class": "field" });
+    wrap.appendChild(el("label", { "for": id, text: labelText }));
+    var input;
+    if (opts.tag === "textarea") {
+      input = el("textarea", { id: id, rows: String(opts.rows || 2) });
+    } else if (opts.tag === "select") {
+      input = el("select", { id: id });
+      (opts.options || []).forEach(function (o) {
+        input.appendChild(el("option", { value: o, text: o }));
+      });
+    } else {
+      input = el("input", { type: "text", id: id });
+      if (opts.placeholder) input.setAttribute("placeholder", opts.placeholder);
+    }
+    input.setAttribute("data-field", key);
+    wrap.appendChild(input);
+    if (opts.note) wrap.appendChild(el("span", { "class": "note", text: opts.note }));
+    return wrap;
+  }
+
+  // ---------------- character variant register
+  var variantRows = document.getElementById("variantRows");
+  for (var v = 1; v <= 3; v++) {
+    var row = el("div", { "class": "regrow" }, [
+      el("input", { type: "text", id: "var_code_" + v, "data-field": "variant_code_" + v, placeholder: "V" + v, "aria-label": "Variant " + v + " code" }),
+      el("input", { type: "text", id: "var_what_" + v, "data-field": "variant_what_" + v, placeholder: "What changes, in structural terms", "aria-label": "Variant " + v + " what changes" }),
+      el("input", { type: "text", id: "var_from_" + v, "data-field": "variant_from_" + v, placeholder: "Shot", "aria-label": "Variant " + v + " from shot" }),
+      el("input", { type: "text", id: "var_cause_" + v, "data-field": "variant_cause_" + v, placeholder: "Caused by", "aria-label": "Variant " + v + " caused by" }),
+      el("input", { type: "text", id: "var_read_" + v, "data-field": "variant_readable_" + v, placeholder: "Readable at", "aria-label": "Variant " + v + " readable at" }),
+      el("input", { type: "text", id: "var_ends_" + v, "data-field": "variant_ends_" + v, placeholder: "Ends at", "aria-label": "Variant " + v + " ends at" })
+    ]);
+    variantRows.appendChild(row);
+  }
+
+  // ---------------- light states
+  var lightRows = document.getElementById("lightRows");
+  for (var l = 1; l <= 3; l++) {
+    lightRows.appendChild(el("div", { "class": "regrow small" }, [
+      el("input", { type: "text", id: "light_code_" + l, "data-field": "light_code_" + l, placeholder: "L" + l, "aria-label": "Light state " + l + " code" }),
+      el("input", { type: "text", id: "light_what_" + l, "data-field": "light_what_" + l, placeholder: "What is lit, and what is off", "aria-label": "Light state " + l + " what is lit and what is off" }),
+      el("input", { type: "text", id: "light_shots_" + l, "data-field": "light_shots_" + l, placeholder: "1–5", "aria-label": "Light state " + l + " shots" }),
+      el("input", { type: "text", id: "light_cause_" + l, "data-field": "light_cause_" + l, placeholder: "Caused by", "aria-label": "Light state " + l + " caused by" })
+    ]));
+  }
+
+  // ---------------- six shots
+  var SHOT_FIELDS = [
+    ["slug", "Slug", "input", "ROOM, FIRST LIGHT"],
+    ["duration", "Length", "input", "6 s"],
+    ["variant", "Variant in force", "input", "V1"],
+    ["light", "Light state", "input", "L1"],
+    ["status", "Row status", "select", ""],
+    ["anchors", "Anchors to hold", "textarea", "All five anchors, or what replaces them in this framing."],
+    ["action", "Action and pose", "textarea", "What happens in one sentence, plus the body position that makes it readable."],
+    ["screen", "Screen position and facing", "textarea", "Centre-right, front-on, 3/4 to frame-left."],
+    ["gaze", "Where they look", "input", "Off-lens frame-right, down at the paper, at camera."],
+    ["props", "Props and hands", "textarea", "Which hand holds what, and what the other hand does."],
+    ["propstates", "Prop state codes", "input", "P-01a upright and full"],
+    ["dressing", "Set dressing changes", "input", "None"],
+    ["framing", "Framing and camera", "textarea", "Size · height · lens feel · movement."],
+    ["inherits", "Inherits from the previous shot", "textarea", "Copy the previous shot's handoff line here."],
+    ["changes", "Changes in this shot (code + cause)", "textarea", "None is the most common answer."],
+    ["handsoff", "Hands off to the next shot", "textarea", "What the next shot must reproduce exactly."],
+    ["hazards", "Watch-outs", "textarea", "The two or three things this shot is most likely to get wrong."]
+  ];
+
+  var shotBlocks = document.getElementById("shotBlocks");
+  for (var s = 1; s <= 6; s++) {
+    var det = el("details", { "class": "shot", id: "shot" + s });
+    if (s === 1) det.setAttribute("open", "");
+    det.appendChild(el("summary", {}, [
+      el("span", { "class": "chev", text: "▸" }),
+      el("span", { text: s === 1 ? "Shot 1 — the anchor shot" : "Shot " + s }),
+      el("span", { "class": "tag", text: s === 1 ? "establishes everything" : "inherits from shot " + (s - 1) })
+    ]));
+    var body = el("div", { "class": "body" });
+    var grid = el("div", { "class": "grid" });
+    SHOT_FIELDS.forEach(function (f) {
+      var key = "shot" + s + "_" + f[0];
+      var opts = { tag: f[2] === "textarea" ? "textarea" : (f[2] === "select" ? "select" : "input") };
+      if (f[2] === "select") opts.options = ["", "F", "C", "U", "N/A"];
+      else if (f[2] === "input") opts.placeholder = f[3];
+      else opts.placeholder = f[3];
+      var wide = f[2] === "textarea";
+      var cell = field("Shot " + s + " · " + f[1], "shot" + s + "_" + f[0], key, opts);
+      if (wide) cell.style.gridColumn = "1 / -1";
+      grid.appendChild(cell);
+    });
+    body.appendChild(grid);
+    det.appendChild(body);
+    shotBlocks.appendChild(det);
+  }
+
+  // ---------------- props
+  var propRows = document.getElementById("propRows");
+  for (var p = 1; p <= 4; p++) {
+    propRows.appendChild(el("div", { "class": "regrow small" }, [
+      el("input", { type: "text", id: "prop_id_" + p, "data-field": "prop_id_" + p, placeholder: "P-0" + p, "aria-label": "Prop " + p + " ID" }),
+      el("input", { type: "text", id: "prop_what_" + p, "data-field": "prop_what_" + p, placeholder: "What it always is", "aria-label": "Prop " + p + " what it always is" }),
+      el("input", { type: "text", id: "prop_states_" + p, "data-field": "prop_states_" + p, placeholder: "P-01a upright · shots 1–4", "aria-label": "Prop " + p + " states" }),
+      el("input", { type: "text", id: "prop_check_" + p, "data-field": "prop_check_" + p, placeholder: "Which hand, which side", "aria-label": "Prop " + p + " what to check" })
+    ]));
+  }
+
+  // ---------------- open items
+  var openRows = document.getElementById("openRows");
+  for (var o = 1; o <= 3; o++) {
+    openRows.appendChild(el("div", { "class": "regrow small" }, [
+      el("input", { type: "text", id: "open_id_" + o, "data-field": "open_id_" + o, placeholder: "U" + o, "aria-label": "Open item " + o + " number" }),
+      el("input", { type: "text", id: "open_where_" + o, "data-field": "open_where_" + o, placeholder: "Shot 6 — mixer buttons", "aria-label": "Open item " + o + " where" }),
+      el("input", { type: "text", id: "open_issue_" + o, "data-field": "open_issue_" + o, placeholder: "What is unresolved", "aria-label": "Open item " + o + " what is unresolved" }),
+      el("input", { type: "text", id: "open_decision_" + o, "data-field": "open_decision_" + o, placeholder: "Decision or accepted risk", "aria-label": "Open item " + o + " decision or accepted risk" })
+    ]));
+  }
+
+  // ---------------- preflight
+  var checks = document.getElementById("preflightChecks");
+  PREFLIGHT.forEach(function (c, i) {
+    var n = i + 1;
+    var wrap = el("div", { "class": "check" });
+    var cb = el("input", { type: "checkbox", id: "pf_" + n, "data-field": "preflight_" + n });
+    var txt = el("div", {}, [
+      el("div", { "class": "t" }, [el("label", { "for": "pf_" + n, text: n + ". " + c[0] })]),
+      el("div", { "class": "d", text: c[1] })
+    ]);
+    wrap.appendChild(cb);
+    wrap.appendChild(txt);
+    checks.appendChild(wrap);
+  });
+
+  // ---------------- data + export
+  function collect() {
+    var data = {};
+    document.querySelectorAll("[data-field]").forEach(function (input) {
+      var key = input.getAttribute("data-field");
+      data[key] = (input.type === "checkbox") ? input.checked : String(input.value || "").trim();
+    });
+    return data;
+  }
+
+  function line(label, value) {
+    return label + ": " + (value && String(value).trim() ? value : "—");
+  }
+
+  function block(title) {
+    var bar = "=".repeat(Math.max(8, Math.min(66, title.length + 6)));
+    return "\n" + bar + "\n" + title.toUpperCase() + "\n" + bar + "\n";
+  }
+
+  function buildExportText(data) {
+    var d = data || collect();
+    var out = [];
+    out.push("THE CONTINUITY BIBLE — SHOT HANDOFF");
+    out.push("Exported from the offline form (v1.0). Plain text; keep it with the project.");
+    out.push("Status markers: F fixed · C changed intentionally (name the code) · U unresolved (say what you accept) · N/A not applicable (say why).");
+
+    out.push(block("1 · Character sheet"));
+    out.push(line("Character ID", d.char_id));
+    out.push(line("Name in the script", d.name_in_script));
+    out.push(line("Role in the scene", d.role_in_scene));
+    out.push(line("Age read", d.age_read));
+    out.push(line("Build and posture", d.build_posture));
+    out.push(line("Eyes", d.eyes));
+    out.push(line("Hair (fixed styling)", d.hair_fixed));
+    out.push(line("Skin and complexion", d.skin_complexion));
+    out.push(line("Signature item", d.signature_item));
+    out.push("\nFive face anchors (copy verbatim):");
+    for (var i = 1; i <= 5; i++) out.push("  " + i + ". " + (d["face_anchor_" + i] || "—"));
+    out.push("\n" + line("V1 baseline wardrobe", d.wardrobe_baseline));
+    out.push("\nVariant register:");
+    for (var vv = 1; vv <= 3; vv++) {
+      if (!d["variant_code_" + vv] && !d["variant_what_" + vv]) continue;
+      out.push("  " + (d["variant_code_" + vv] || "V" + vv) + " — " + (d["variant_what_" + vv] || "—")
+        + " | from shot " + (d["variant_from_" + vv] || "—")
+        + " | caused by " + (d["variant_cause_" + vv] || "—")
+        + " | readable at " + (d["variant_readable_" + vv] || "—")
+        + " | ends " + (d["variant_ends_" + vv] || "—"));
+    }
+    out.push("\nThree never-change items:");
+    for (var n = 1; n <= 3; n++) out.push("  " + n + ". " + (d["never_change_" + n] || "—"));
+    out.push("\n" + line("Anchor line", d.anchor_line));
+
+    out.push(block("2 · Location sheet"));
+    out.push(line("Location ID", d.loc_id));
+    out.push(line("Location name", d.loc_name));
+    out.push(line("Story function", d.story_function));
+    out.push(line("Room read", d.room_read));
+    out.push(line("Palette and materials", d.palette_materials));
+    out.push(line("Time band", d.time_band));
+    out.push("\nFive fixed landmarks:");
+    for (var k = 1; k <= 5; k++) out.push("  " + k + ". " + (d["landmark_" + k] || "—"));
+    out.push("\n" + line("Light sources that exist", d.light_sources_fixed));
+    out.push(line("Geography rules", d.geography_rules));
+    out.push("\nLight states:");
+    for (var ll = 1; ll <= 3; ll++) {
+      if (!d["light_code_" + ll] && !d["light_what_" + ll]) continue;
+      out.push("  " + (d["light_code_" + ll] || "L" + ll) + " — " + (d["light_what_" + ll] || "—")
+        + " | shots " + (d["light_shots_" + ll] || "—")
+        + " | caused by " + (d["light_cause_" + ll] || "—"));
+    }
+    out.push("\nThree never-change items:");
+    for (var m = 1; m <= 3; m++) out.push("  " + m + ". " + (d["loc_never_change_" + m] || "—"));
+
+    out.push(block("3 · Six shots"));
+    var names = {
+      slug: "Slug", duration: "Length", variant: "Variant in force", light: "Light state",
+      status: "Row status", anchors: "Anchors to hold", action: "Action and pose",
+      screen: "Screen position and facing", gaze: "Where they look", props: "Props and hands",
+      propstates: "Prop states", dressing: "Set dressing changes", framing: "Framing and camera",
+      inherits: "Inherits from previous shot", changes: "Changes in this shot", handsoff: "Hands off to next shot",
+      hazards: "Watch-outs"
+    };
+    var order = ["slug", "duration", "status", "variant", "light", "anchors", "inherits", "changes",
+                 "handsoff", "action", "screen", "gaze", "props", "propstates", "dressing", "framing", "hazards"];
+    for (var sh = 1; sh <= 6; sh++) {
+      var any = false;
+      order.forEach(function (key) { if (d["shot" + sh + "_" + key]) any = true; });
+      out.push("\n--- SHOT " + sh + (any ? "" : " (empty)")
+        + (d["shot" + sh + "_status"] ? " · status " + d["shot" + sh + "_status"] : "") + " ---");
+      order.forEach(function (key) {
+        var val = d["shot" + sh + "_" + key];
+        out.push("  " + (names[key] + ":").padEnd(30, " ") + (val || "—"));
+      });
+    }
+
+    out.push(block("4 · Hero props and open items"));
+    for (var pp = 1; pp <= 4; pp++) {
+      if (!d["prop_id_" + pp] && !d["prop_what_" + pp]) continue;
+      out.push("  " + (d["prop_id_" + pp] || "P-0" + pp) + " — " + (d["prop_what_" + pp] || "—")
+        + " | states: " + (d["prop_states_" + pp] || "—")
+        + " | check: " + (d["prop_check_" + pp] || "—"));
+    }
+    out.push("\nOpen items:");
+    var openAny = false;
+    for (var oo = 1; oo <= 3; oo++) {
+      if (!d["open_id_" + oo] && !d["open_issue_" + oo] && !d["open_what_" + oo]) continue;
+      openAny = true;
+      out.push("  " + (d["open_id_" + oo] || "U" + oo) + " — " + (d["open_where_" + oo] || "—")
+        + " | " + (d["open_issue_" + oo] || "—") + " | decision: " + (d["open_decision_" + oo] || "—"));
+    }
+    if (!openAny) out.push("  (none written down)");
+
+    out.push(block("5 · Preflight and drift log"));
+    out.push(line("Shot", d.preflight_shot));
+    PREFLIGHT.forEach(function (c, idx) {
+      var checked = d["preflight_" + (idx + 1)];
+      out.push("  [" + (checked ? "x" : " ") + "] " + (idx + 1) + ". " + c[0]);
+    });
+    out.push(line("Blank boxes — why", d.preflight_note));
+    out.push(line("What came out", d.drift_what));
+    out.push(line("Verdict", d.drift_verdict));
+    out.push(line("Action", d.drift_action));
+
+    out.push(block("Reminder"));
+    out.push("When the frame and this document disagree, the document changes. It records decisions, not guarantees.");
+    out.push("");
+    return out.join("\n");
+  }
+
+  // ---------------- actions
+  var toast = document.getElementById("toast");
+  function say(msg) {
+    toast.textContent = msg;
+    toast.className = "toast show";
+    window.setTimeout(function () { toast.className = "toast"; }, 1900);
+  }
+
+  function build() {
+    var ta = document.getElementById("exportText");
+    ta.value = buildExportText(collect());
+    var target = document.getElementById("s6");
+    if (target && target.scrollIntoView) {
+      try { target.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) {}
+    }
+    say("Handoff text built in section 6.");
+    return ta.value;
+  }
+
+  document.getElementById("btnBuild").addEventListener("click", build);
+  document.getElementById("btnBuild2").addEventListener("click", build);
+  document.getElementById("btnPrint").addEventListener("click", function () { window.print(); });
+
+  document.getElementById("btnCopy").addEventListener("click", function () {
+    var ta = document.getElementById("exportText");
+    if (!ta.value) build();
+    ta.focus(); ta.select();
+    var ok = false;
+    try { ok = document.execCommand && document.execCommand("copy"); } catch (e) { ok = false; }
+    if (!ok && navigator.clipboard) {
+      navigator.clipboard.writeText(ta.value).then(function () { say("Copied."); },
+        function () { say("Select the text and copy it manually."); });
+      return;
+    }
+    say(ok ? "Copied." : "Select the text and copy it manually.");
+  });
+
+  document.getElementById("btnDownload").addEventListener("click", function () {
+    var ta = document.getElementById("exportText");
+    if (!ta.value) build();
+    try {
+      var blob = new Blob([ta.value], { type: "text/plain;charset=utf-8" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "continuity-handoff.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      say("Downloaded continuity-handoff.txt");
+    } catch (e) {
+      say("Download blocked — select the text and copy it instead.");
+    }
+  });
+
+  // draft saving (local to this browser, never sent anywhere)
+  function saveDraft() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collect()));
+      say("Draft saved in this browser.");
+    } catch (e) {
+      say("This browser will not let the page save a draft.");
+    }
+  }
+  document.getElementById("btnSave").addEventListener("click", saveDraft);
+
+  document.getElementById("btnClear").addEventListener("click", function () {
+    if (!window.confirm("Clear every field on this page? Saved drafts in this browser are cleared too.")) return;
+    document.querySelectorAll("[data-field]").forEach(function (input) {
+      if (input.type === "checkbox") input.checked = false;
+      else input.value = "";
+    });
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    document.getElementById("exportText").value = "";
+    say("Cleared.");
+  });
+
+  function restoreDraft() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      var data = JSON.parse(raw);
+      Object.keys(data).forEach(function (key) {
+        var input = document.querySelector('[data-field="' + key + '"]');
+        if (!input) return;
+        if (input.type === "checkbox") input.checked = !!data[key];
+        else input.value = data[key];
+      });
+      say("Draft restored from this browser.");
+    } catch (e) { /* no draft, or storage disabled: the form still works */ }
+  }
+
+  // expose a small API so the export can be tested without a browser UI
+  window.CB = { collect: collect, buildExportText: buildExportText, PREFLIGHT: PREFLIGHT };
+
+  restoreDraft();
+})();
+</script>
+</body>
+</html>
