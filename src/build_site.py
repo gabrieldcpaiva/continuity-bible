@@ -40,7 +40,7 @@ def preflight_rows():
             '        <div class="check">\n'
             f'          <input type="checkbox" id="pf{i}" name="pf{i}">\n'
             f'          <label for="pf{i}">'
-            f'<span class="t"><span class="n">{i:02d}</span>{html.escape(label)}</span>'
+            f'<span class="t"><span class="n">{i:02d}</span> {html.escape(label)}</span>'
             f'<span class="d">{html.escape(line)}</span>'
             f'<span class="why">{html.escape(why)}</span>'
             "</label>\n"

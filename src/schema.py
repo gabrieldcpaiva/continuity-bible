@@ -1,6 +1,6 @@
 """The Continuity Bible — field schema (single source of truth).
 
-Everything the buyer edits is defined here once: the field dictionary, the blank
+Everything a reader fills in is defined here once: the field dictionary, the blank
 templates, the worked-example tables and the HTML form all read from this module.
 
 Three layers, deliberately kept separate:
@@ -21,7 +21,7 @@ PRODUCT = {
     "tagline": "A six-shot handoff system for independent AI filmmakers",
     "version": "v1.0",
     "edition_date": "November 2026",
-    "price_line": "Test price US$29 (unvalidated)",
+    "price_line": "Free for everyone",
     "model_note": (
         "Written to be generation-model independent. Where a technical term appears "
         "(lens feel, camera height, frame side) it is marked optional: use the parts "
@@ -62,7 +62,7 @@ STATUS = [
 
 # ---------------------------------------------------------------------------
 # Field definitions. `key` is the machine name used by the HTML form and the
-# CSV export; `label` is what the buyer reads. `lines` is writing space in the
+# CSV export; `label` is what the reader sees. `lines` is writing space in the
 # printed template (0 = single short line).
 # ---------------------------------------------------------------------------
 

@@ -11,11 +11,15 @@ python3 -m http.server 8080 --bind 0.0.0.0 --directory site
 # open http://localhost:8080
 ```
 
-## Deploy (the way you already do it)
+## Deploy on Vercel
 
-1. Drag the **whole `site/` folder** onto <https://app.netlify.com/drop>.
-2. Rename the site in Netlify if you want a tidier URL.
-3. Nothing to configure: no build command, no environment variables, no functions.
+The repo root has a `vercel.json` that serves this folder as a static site: no framework, no install, no build command, `outputDirectory` set to `site`. The page is meant to be indexed. Do not add an `X-Robots-Tag: noindex` header.
+
+1. Import the Git repository in Vercel, or run `npx vercel` from the repo root.
+2. Leave the build settings on what `vercel.json` already says.
+3. Open the URL Vercel gives you. That URL replaces `https://continuity-bible.vercel.app` in the README and the launch posts.
+
+Nothing else to configure: no environment variables, no functions.
 
 It also works from a USB stick or a `file://` open, except that **saved preflight state** needs
 `localStorage`, which some browsers block for `file://` pages. The page degrades quietly — the checkboxes
@@ -60,5 +64,4 @@ top of the same file. There is no JavaScript framework — the whole script is ~
 Two deliberate constraints, so the page stays honest and portable:
 
 - **No external requests.** No CDN, no Google Fonts, no analytics. The icon is inline SVG.
-- **No price.** The page is a gift. If you ever put a price back on it, do it on a different page so this
-  one keeps working as the free front door.
+- **Free for everyone.** The page does not mention a price. Keep it that way.

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Continuity Bible — offline continuity form</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2313504A'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='18' fill='%23ffffff' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
 <style>
   :root{
     --ink:#17212B; --muted:#5C6775; --faint:#8A939E; --rule:#D3D9DF;
@@ -112,10 +113,12 @@
     <p class="sub">The same fields as the printed sheets, in one page that works with no connection, no account and no
       install. Fill it in, then use <strong>Build the handoff</strong> to turn it into plain text you can keep, print or paste
       into your notes.</p>
+    <p class="sub">Unsaved text is lost on reload. A saved draft stays only in this browser, and it is never sent anywhere.</p>
     <div class="toolbar">
       <button type="button" id="btnBuild">Build the handoff</button>
       <button type="button" class="secondary" id="btnPrint">Print this page</button>
       <button type="button" class="secondary" id="btnSave">Save draft in this browser</button>
+      <button type="button" class="secondary" id="btnClearDraft">Clear saved draft</button>
       <button type="button" class="secondary" id="btnClear">Clear everything</button>
     </div>
     <nav class="jump" aria-label="Jump to a section">
@@ -139,7 +142,7 @@
 
   <!-- 1 ───────────────────────────────────────────────── CHARACTER -->
   <section class="card" id="s1">
-    <h2><span class="num">1</span>Character sheet</h2>
+    <h2><span class="num">1</span> Character sheet</h2>
     <p class="hint">One character. Five face anchors, one baseline look, every change coded. Everything here is identity unless a variant says otherwise.</p>
 
     <div class="grid">
@@ -230,7 +233,7 @@
 
   <!-- 2 ───────────────────────────────────────────────── LOCATION -->
   <section class="card" id="s2">
-    <h2><span class="num">2</span>Location sheet</h2>
+    <h2><span class="num">2</span> Location sheet</h2>
     <p class="hint">One location. Five fixed landmarks, the light sources that exist, and the geography rules that stop a room mirroring between shots.</p>
 
     <div class="grid">
@@ -300,7 +303,7 @@
 
   <!-- 3 ───────────────────────────────────────────────── SHOTS -->
   <section class="card" id="s3">
-    <h2><span class="num">3</span>Six shots</h2>
+    <h2><span class="num">3</span> Six shots</h2>
     <p class="hint">One block per shot, in order. Start every block after the first by copying the previous shot's handoff line into
       “Inherits from”, then write only what is different.</p>
     <div id="shotBlocks"></div>
@@ -308,7 +311,7 @@
 
   <!-- 4 ───────────────────────────────────────────────── PROPS -->
   <section class="card" id="s4">
-    <h2><span class="num">4</span>Hero props and open items</h2>
+    <h2><span class="num">4</span> Hero props and open items</h2>
     <p class="hint">Only the props you would notice if they changed. Give each one a state code where it changes: P-01a, P-01b.</p>
     <div class="reghdr small" aria-hidden="true"><span>Prop ID</span><span>What it always is</span><span>States (code · what it is · shots)</span><span>Checked in</span></div>
     <div id="propRows"></div>
@@ -322,7 +325,7 @@
 
   <!-- 5 ───────────────────────────────────────────────── PREFLIGHT -->
   <section class="card" id="s5">
-    <h2><span class="num">5</span>Preflight for the shot in front of you</h2>
+    <h2><span class="num">5</span> Preflight for the shot in front of you</h2>
     <p class="hint">Fifteen checks, one minute. Tick what is true; leave a box blank and write why if something does not apply.</p>
     <div class="grid" style="margin-bottom:12px">
       <div class="field">
@@ -369,7 +372,7 @@
 
   <!-- 6 ───────────────────────────────────────────────── EXPORT -->
   <section class="card" id="s6">
-    <h2><span class="num">6</span>The handoff as plain text</h2>
+    <h2><span class="num">6</span> The handoff as plain text</h2>
     <p class="hint">Everything you typed, in the order you will need it at the machine. Nothing is sent anywhere: this page has no
       network connection of its own.</p>
     <div class="exportBox">
@@ -755,6 +758,12 @@
     }
   }
   document.getElementById("btnSave").addEventListener("click", saveDraft);
+
+  document.getElementById("btnClearDraft").addEventListener("click", function () {
+    if (!window.confirm("Clear the saved draft in this browser? The text on this page stays until you reload.")) return;
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    say("Saved draft cleared. This page is unchanged until you reload.");
+  });
 
   document.getElementById("btnClear").addEventListener("click", function () {
     if (!window.confirm("Clear every field on this page? Saved drafts in this browser are cleared too.")) return;
