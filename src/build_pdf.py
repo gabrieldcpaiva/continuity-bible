@@ -319,10 +319,10 @@ def colophon_page():
     ), T.ST["body"]))
     f.append(Paragraph("How you may use it", T.ST["h2"]))
     for it in [
-        "Use the sheets, tables and checklists on as many of your own productions as you like, commercial or not.",
-        "Print, copy, edit and rename the files for your own work and for the people you collaborate with on a production.",
-        "Do not resell the files, publish them as your own template product, or redistribute them as a download.",
-        "Quote it, teach with it and link to it, with credit to The Continuity Bible.",
+        "You may share and adapt these sheets for non-commercial use under CC BY-NC 4.0. Credit Gabriel Paiva.",
+        "Print, copy, edit and rename the files for your own non-commercial work and for collaborators on that work.",
+        "Do not sell the files or use them commercially. The licence is https://creativecommons.org/licenses/by-nc/4.0/.",
+        "Quote it and teach with it, with credit to The Continuity Bible.",
     ]:
         f.append(Paragraph(T.inline(it), T.ST["ul"], bulletText="•"))
     f.append(Spacer(1, 4))
