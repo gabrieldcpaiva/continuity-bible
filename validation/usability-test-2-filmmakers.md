@@ -1,15 +1,14 @@
 # Two-person usability test — workflow usability
 
-**Status: prepared, not run.** No filmmaker has been observed using this product. Nothing in this file is a
-result. When it has been run, fill in the record at the bottom with what actually happened, including the
-parts that went badly.
+**Status: prepared, not run.** Nothing in this file is a result yet. The product is new. When the session
+has been run, fill in the record at the bottom with what actually happened, including the parts that went
+badly. Feedback is the point.
 
 **What it tests:** can two filmmakers plan a new six-shot sequence with these sheets, unaided, without
 reading the whole book first?
 
-**What it does not test:** whether anyone will pay for it. That is the separate three-person commercial
-test in `commercial-stopgo-test.md`. Do not count a person from this test as a participant in that one
-unless they complete both activities and both are recorded separately.
+**What it does not test:** price. The product is free for everyone. The commercial stop/go test in
+`commercial-stopgo-test.md` is retired. Do not ask these participants to pay, and do not quote a price.
 
 ---
 

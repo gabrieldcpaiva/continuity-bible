@@ -27,7 +27,8 @@ does not contradict itself.
 
 ## 2. Automated checks on the offline form
 
-`node tools/tests/test-form.mjs` (jsdom, file:// URL) — **35 checks, 35 passed, 0 failed.**
+`node tools/tests/test-form.mjs` (jsdom, file:// URL) — **35 checks, 35 passed, 0 failed** on 23 November 2026.
+The free-launch pass added three checks: a favicon, the unsaved-text warning, and a Clear saved draft button. Re-run expects **38 passed, 0 failed**.
 
 Covered: the page builds all fields; six shot blocks and fifteen preflight items exist; every input has a
 label or an accessible name; a realistic six-shot fill-in exports text containing every value typed, with
@@ -66,8 +67,8 @@ The file is RGB, not CMYK, and should be proofed by the printer before a short r
 
 ## 5. What was not tested, and must not be implied
 
-- **No filmmaker has read, filled in or used any of this.**
-- **No one has been asked about price.** US$29 is a test price with no evidence behind it.
+- Filmmaker use was outside this check. The usability session is written and not yet run. The edition is new, and feedback is welcome.
+- A commercial price question was drafted with these checks and then retired on 26 November 2026, when the work was made free for everyone. Do not imply that anyone was asked to pay.
 - No comparison against a real sequence was made by a second person; there is no inter-rater check.
 - No accessibility audit by a screen-reader user; the PDF is tagged only by reading order, not as a
   fully tagged PDF, and the HTML form has labels and focus styles but no automated audit (axe or similar
@@ -76,8 +77,10 @@ The file is RGB, not CMYK, and should be proofed by the printer before a short r
 ## 6. Re-running these checks
 
 ```bash
+python3 -m pip install -r requirements.txt
 python3 src/check_example.py        # expects 86 passed, 0 failed
 npm install --no-save jsdom
-node tools/tests/test-form.mjs      # expects 35 passed, 0 failed
-python3 src/build_pdf.py            # expects "pages 43"
+node tools/tests/test-form.mjs      # expects 38 passed, 0 failed
+node tools/tests/test-site.mjs      # expects 47 passed, 0 failed
+python3 src/build_pdf.py            # expects 43 pages
 ```

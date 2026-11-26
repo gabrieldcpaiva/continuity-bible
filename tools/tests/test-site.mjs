@@ -105,6 +105,9 @@ const text = doc.body.textContent;
 });
 check(/no trackers|no cookies|no analytics/i.test(text), "privacy claim is stated");
 check(/not a prompt pack/i.test(text), "boundaries are stated on the page");
+check(/The paper does not stop the drift\./.test(text), "the page states the book's limit in that sentence");
+check(!/piece of paper that stops it/i.test(text), "the page does not claim the paper stops the drift");
+check(!/\$29|US\$29|test price/i.test(text), "no price on the page");
 
 // 12 — accessibility plumbing
 check(!!doc.querySelector("a.skip"), "there is a skip link");

@@ -152,9 +152,15 @@ check(doc.getElementById("exportText").value === text, "the build button fills t
 
 // 7 — the form makes no network calls when loaded from disk
 check(window.location.protocol === "file:", "the page was loaded over file://");
-const scripts = [...doc.querySelectorAll("script[src], link[href], img[src]")];
+const scripts = [...doc.querySelectorAll("script[src], link[href], img[src]")].filter((el) => {
+  const url = el.getAttribute("src") || el.getAttribute("href") || "";
+  return !url.startsWith("data:");
+});
 check(scripts.length === 0, "the page loads no external scripts, styles or images",
   `${scripts.length} external references`);
+check(!!doc.querySelector('link[rel="icon"]'), "the form has a favicon");
+check(/unsaved text is lost on reload/i.test(doc.body.textContent), "the form warns that unsaved text is lost");
+check(!!doc.getElementById("btnClearDraft"), "there is a Clear saved draft button");
 
 // 8 — everything happens inside one file
 check(html.length > 20000 && html.length < 200000, "single self-contained file", `${html.length} bytes`);

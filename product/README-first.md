@@ -76,7 +76,8 @@ the source, not with this folder.
 - Everything here is original to this product. No paid prompt collections, courses or template packs were
   used, quoted or adapted.
 - The worked example is invented. It is internally consistent — the point of the example is that it has no
-  accidental contradictions — and it was checked by a script, not by a filmmaker.
-- **No filmmaker has tested this product yet.** The usability test and the commercial test are prepared but
-  have not been run. If a later version says they have, that version will say who and when.
-- The price (US$29) is a test price for a first sale, not a market-tested figure.
+  accidental contradictions — and it was checked by a script. The mug that tips between shot 4 and shot 5
+  is part of that invented scene, not a report of someone's shoot.
+- This edition is new, and it is free for everyone. A two-person usability session is written and not yet
+  run. If a field is wrong when you use it, feedback is welcome.
+- The old commercial price test is retired. Nothing in this folder is for sale.

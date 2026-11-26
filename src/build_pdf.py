@@ -249,7 +249,7 @@ class CoverBlock(Flowable):
         c.drawString(20 * mm, 19.5 * mm, "EDITABLE TEMPLATES  ·  PRINT-READY PDF  ·  COMPLETE SIX-SHOT WORKED EXAMPLE")
         c.setFillColor(MUTED)
         c.setFont("Inter", 8)
-        c.drawString(20 * mm, 14 * mm, "Version 1.0  ·  November 2026  ·  Works with any generation model")
+        c.drawString(20 * mm, 14 * mm, f"Version 1.0  ·  November 2026  ·  {PRODUCT['price_line']}")
         c.setFont("Inter", 8)
         c.setFillColor(FAINT)
         c.drawRightString(W - 20 * mm, 14 * mm, "The Continuity Bible")
@@ -305,8 +305,8 @@ def contents_page(entries):
         "kind": "note", "title": "An honest note about what this can do",
         "body": "Continuity is a production judgment supported by a useful record, not an automatic guarantee. This system makes "
                 "intentional changes explicit and makes accidental ones easier to catch. It does not prevent drift by itself, and "
-                "no document can promise a consistent result. It was also not tested with other filmmakers before release — see the "
-                "validation notes in the folder.",
+                "no document can promise a consistent result. This edition is new, and it is free. Feedback from the first real "
+                "scenes is welcome.",
     })[1])
     return f
 
@@ -315,8 +315,7 @@ def colophon_page():
     f = [PageBreak(), Paragraph("The fine print", T.ST["h1"]), Spacer(1, 2)]
     f.append(Paragraph(T.inline(
         "**The Continuity Bible**, version 1.0, November 2026. A six-shot continuity handoff system for independent AI filmmakers. "
-        "The proposed price is US$29, and it is a test price: no sales data existed at the time of writing. "
-        "If this copy reached you free, that is the intended use — nothing is owed, and nothing here is a paywall."
+        + PRODUCT["price_line"] + ". Print it, edit the sheets, and use them on your own productions. Nothing is sold from these pages."
     ), T.ST["body"]))
     f.append(Paragraph("How you may use it", T.ST["h2"]))
     for it in [
@@ -337,14 +336,14 @@ def colophon_page():
     f.append(Paragraph(T.inline(
         "Set in Inter (SIL Open Font License 1.1) for text and tables, Source Serif 4 (SIL Open Font License 1.1) for display, "
         "and JetBrains Mono (SIL Open Font License 1.1) for the fixed-width examples. All three are embedded in this file. "
-        "Font files and licences are included in the folder. Typeset from a single Markdown source with Python and reportlab, so the "
-        "print edition and the editable files cannot disagree."
+        "Font files and licences are included in the folder. Typeset from the field schema in src/schema.py with Python and reportlab, so the "
+        "print edition and the editable files cannot disagree. The Markdown is generated from that schema."
     ), T.ST["body"]))
     f.append(Paragraph("Status of validation", T.ST["h2"]))
     f.append(Paragraph(T.inline(
-        "At the time of release, the two-person usability test and the three-person commercial stop/go test described in the folder "
-        "had been prepared but not run. No filmmaker has yet been observed using this product, and no purchase interest has been "
-        "recorded. Treat the claim that this is useful as a hypothesis with a well-reasoned design behind it, not as a proven result."
+        "This edition is new. The worked example was checked by script for internal consistency. A two-person usability session "
+        "is written and not yet run. The commercial price test is retired: the work is free for everyone. If a field fails you "
+        "on a real scene, that feedback is welcome."
     ), T.ST["body"]))
     return f
 

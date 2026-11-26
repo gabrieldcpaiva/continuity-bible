@@ -12,7 +12,7 @@
 <style>
   :root{
     --bg:#0e0f11; --panel:#141619; --panel-2:#191c20; --line:#262a2f; --line-2:#33383f;
-    --ink:#ece9e3; --muted:#a29c92; --dim:#6f6a63;
+    --ink:#ece9e3; --muted:#a29c92; --dim:#7f7a73;
     --accent:#e2703a; --accent-2:#f2a37c; --good:#7fae8c;
     --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
     --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -165,9 +165,9 @@
       <h1>The mug must<br><em>stay there.</em></h1>
       <p class="lede">Six generated shots, one scene. The face, the label, the mug, the light, the side of the room.
       Six chances for a model to quietly change one of them and cost you a night.</p>
-      <p class="sub">This is the piece of paper that stops it — three layers, one handoff line between every pair of
-      shots, and a check you can run in sixty seconds before you press generate. It's a document, not an app. It
-      works with whatever you generate in.</p>
+      <p class="sub">This is the piece of paper you write before you generate — three layers, one handoff line between every pair of
+      shots, and a check you can run in sixty seconds. The paper does not stop the drift. It names what the next shot must keep.
+      It's a document, not an app. It works with whatever you generate in.</p>
       <div class="cta">
         <a class="btn" href="#preflight">Run the one-minute check</a>
         <a class="btn ghost" href="files/the-continuity-bible.pdf" download>Get the 43-page PDF</a>
@@ -236,63 +236,63 @@
       <div class="checks" id="checks">
         <div class="check">
           <input type="checkbox" id="pf1" name="pf1">
-          <label for="pf1"><span class="t"><span class="n">01</span>Row check</span><span class="d">The shot number and slug match the row I am working from.</span><span class="why">Wrong row is the most common cause of a wrong shot.</span></label>
+          <label for="pf1"><span class="t"><span class="n">01</span> Row check</span><span class="d">The shot number and slug match the row I am working from.</span><span class="why">Wrong row is the most common cause of a wrong shot.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf2" name="pf2">
-          <label for="pf2"><span class="t"><span class="n">02</span>Identity</span><span class="d">The five face anchors are pasted word for word, in the same order.</span><span class="why">Paraphrasing anchors is how faces drift.</span></label>
+          <label for="pf2"><span class="t"><span class="n">02</span> Identity</span><span class="d">The five face anchors are pasted word for word, in the same order.</span><span class="why">Paraphrasing anchors is how faces drift.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf3" name="pf3">
-          <label for="pf3"><span class="t"><span class="n">03</span>Never-change list</span><span class="d">The three character items and three location items are in the prompt.</span><span class="why">Your personal tripwires.</span></label>
+          <label for="pf3"><span class="t"><span class="n">03</span> Never-change list</span><span class="d">The three character items and three location items are in the prompt.</span><span class="why">Your personal tripwires.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf4" name="pf4">
-          <label for="pf4"><span class="t"><span class="n">04</span>Variant code</span><span class="d">The variant in force matches the previous shot, or the change has a code and a cause.</span><span class="why">An uncoded change is drift you have not noticed yet.</span></label>
+          <label for="pf4"><span class="t"><span class="n">04</span> Variant code</span><span class="d">The variant in force matches the previous shot, or the change has a code and a cause.</span><span class="why">An uncoded change is drift you have not noticed yet.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf5" name="pf5">
-          <label for="pf5"><span class="t"><span class="n">05</span>Wardrobe</span><span class="d">Same garment set, same fastening state, same sleeve length as the row says.</span><span class="why">Sleeves and buttons are the first thing to flip.</span></label>
+          <label for="pf5"><span class="t"><span class="n">05</span> Wardrobe</span><span class="d">Same garment set, same fastening state, same sleeve length as the row says.</span><span class="why">Sleeves and buttons are the first thing to flip.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf6" name="pf6">
-          <label for="pf6"><span class="t"><span class="n">06</span>Hair</span><span class="d">Same part, same tuck, same length.</span><span class="why">Hair tuck changes read as a different person at wide framing.</span></label>
+          <label for="pf6"><span class="t"><span class="n">06</span> Hair</span><span class="d">Same part, same tuck, same length.</span><span class="why">Hair tuck changes read as a different person at wide framing.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf7" name="pf7">
-          <label for="pf7"><span class="t"><span class="n">07</span>Hands and props</span><span class="d">Correct hand, correct prop state code, other hand accounted for.</span><span class="why">Models love to swap hands.</span></label>
+          <label for="pf7"><span class="t"><span class="n">07</span> Hands and props</span><span class="d">Correct hand, correct prop state code, other hand accounted for.</span><span class="why">Models love to swap hands.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf8" name="pf8">
-          <label for="pf8"><span class="t"><span class="n">08</span>Prop state</span><span class="d">Mug, paper, tools and carried items are in the state the row records.</span><span class="why">A prop that resets is a continuity break the audience feels.</span></label>
+          <label for="pf8"><span class="t"><span class="n">08</span> Prop state</span><span class="d">Mug, paper, tools and carried items are in the state the row records.</span><span class="why">A prop that resets is a continuity break the audience feels.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf9" name="pf9">
-          <label for="pf9"><span class="t"><span class="n">09</span>Geography</span><span class="d">Two landmarks named with their frame side; nobody has been mirrored.</span><span class="why">Mirroring is invisible until the cut.</span></label>
+          <label for="pf9"><span class="t"><span class="n">09</span> Geography</span><span class="d">Two landmarks named with their frame side; nobody has been mirrored.</span><span class="why">Mirroring is invisible until the cut.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf10" name="pf10">
-          <label for="pf10"><span class="t"><span class="n">10</span>The line</span><span class="d">The camera is on the same side of the line as the previous shot.</span><span class="why">If it is not, the shot needs a written reason.</span></label>
+          <label for="pf10"><span class="t"><span class="n">10</span> The line</span><span class="d">The camera is on the same side of the line as the previous shot.</span><span class="why">If it is not, the shot needs a written reason.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf11" name="pf11">
-          <label for="pf11"><span class="t"><span class="n">11</span>Light state</span><span class="d">The light code matches the register, including anything that is off.</span><span class="why">An unlit practical is continuity too.</span></label>
+          <label for="pf11"><span class="t"><span class="n">11</span> Light state</span><span class="d">The light code matches the register, including anything that is off.</span><span class="why">An unlit practical is continuity too.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf12" name="pf12">
-          <label for="pf12"><span class="t"><span class="n">12</span>Time band</span><span class="d">Same time band; nothing in frame records an impossible time.</span><span class="why">No clocks, no screens with times, no phone lock screens.</span></label>
+          <label for="pf12"><span class="t"><span class="n">12</span> Time band</span><span class="d">Same time band; nothing in frame records an impossible time.</span><span class="why">No clocks, no screens with times, no phone lock screens.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf13" name="pf13">
-          <label for="pf13"><span class="t"><span class="n">13</span>Framing</span><span class="d">Framing size, height, angle and movement match the row.</span><span class="why">Height drift is subtle and expensive.</span></label>
+          <label for="pf13"><span class="t"><span class="n">13</span> Framing</span><span class="d">Framing size, height, angle and movement match the row.</span><span class="why">Height drift is subtle and expensive.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf14" name="pf14">
-          <label for="pf14"><span class="t"><span class="n">14</span>Handoff</span><span class="d">I have read the handoff line aloud: this shot must hand off — to shot —.</span><span class="why">Saying it out loud catches what skimming misses.</span></label>
+          <label for="pf14"><span class="t"><span class="n">14</span> Handoff</span><span class="d">I have read the handoff line aloud: this shot must hand off — to shot —.</span><span class="why">Saying it out loud catches what skimming misses.</span></label>
         </div>
         <div class="check">
           <input type="checkbox" id="pf15" name="pf15">
-          <label for="pf15"><span class="t"><span class="n">15</span>Open items</span><span class="d">Any U mark in this row is decided, or its accepted risk is written down.</span><span class="why">Allowed to stay open. Not allowed to stay silent.</span></label>
+          <label for="pf15"><span class="t"><span class="n">15</span> Open items</span><span class="d">Any U mark in this row is decided, or its accepted risk is written down.</span><span class="why">Allowed to stay open. Not allowed to stay silent.</span></label>
         </div>
       </div>
       <p class="done-note" id="doneNote"></p>
@@ -390,7 +390,7 @@ frame-right · hands off to shot 4: same frame, mug still full</pre>
             <div class="name">continuity-form.html</div>
             <div class="what">Offline form: same fields, one file, exports plain text.</div>
           </a>
-          <span class="sz">40 KB</span>
+          <span class="sz">41 KB</span>
         </div>
       </div>
     </div>
@@ -403,10 +403,9 @@ frame-right · hands off to shot 4: same frame, mug still full</pre>
       <div>
         <h3>What this is not</h3>
         <p>Not a prompt pack, not a model integration, not a promise that your shots will match. Continuity is a
-        production judgement; this is the written record it works from, plus a way to catch the problem before you pay
-        for the shot. No footage, no stock images, no third-party templates.</p>
-        <p>If it saves you one re-generation, it has paid for itself. There is no price on this page and no button to
-        buy it: it's a gift, the same way the rest of this stuff is.</p>
+        production judgement; this is the written record it works from, plus a way to catch the problem before the
+        shot is wasted. No footage, no stock images, no third-party templates.</p>
+        <p>Free for everyone. Print the files, edit them, and use them on the next scene. If a field is wrong, say so.</p>
       </div>
       <div>
         <h3>Use it</h3>
@@ -415,7 +414,7 @@ frame-right · hands off to shot 4: same frame, mug still full</pre>
         <p>Type: Inter, Source Serif 4 and JetBrains Mono, all SIL Open Font License, all embedded in the PDF.</p>
       </div>
     </div>
-    <p class="stamp">The Continuity Bible v1.0 · November 2026 · built from one Markdown source · no trackers, no
+    <p class="stamp">The Continuity Bible v1.0 · November 2026 · built from the field schema · no trackers, no
     cookies, no analytics · this page makes no network requests at all</p>
   </div>
 </footer>

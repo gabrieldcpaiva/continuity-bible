@@ -78,11 +78,10 @@ recording:
 the specific habits it enforces (identical wording, an approved anchor frame, an explicit change record)
 are the ones practitioners describe.
 
-**What this does not support:** nothing here is evidence that filmmakers will pay US$29 for a document.
-It is evidence about method, not about demand. Adjacent tools exist — Boords sells storyboard software
-from $39/month, Milanote sells a visual workspace from $9.99/month — and their existence shows the market
-is real, not that this product fits inside it. That question is what the three-person commercial test in
-`validation/` is for, and it is unvalidated.
+**What this does not support:** nothing here is evidence about demand. It is evidence about method.
+Adjacent tools exist — Boords lists storyboard software from $39/month, Milanote lists a visual workspace
+from $9.99/month — and those are their prices, not this product's. This product is free for everyone.
+The commercial price test in `validation/` is retired.
 
 ## 4. Deliberately not used
 
@@ -92,10 +91,8 @@ is real, not that this product fits inside it. That question is what the three-p
 - One adjacent research paper (a 2026 multi-shot “entity memory” system) circulated in summaries during
   the research window. It was not read directly, so it is not cited as evidence here.
 
-## 5. What still needs checking, if the product is ever sold
+## 5. What still needs checking
 
-- Competitor prices at the moment of launch (they move; the 33% annual discount in particular).
-- Whether the “independent AI filmmaker” segment treats US$29 as an impulse purchase or as a
-  subscription-shaped decision — only the commercial test answers this.
-- Whether buyers can use the sheets without the worked example in front of them — the two-person
-  usability test in `validation/` is designed for exactly that question and has not been run.
+- Whether a reader can use the sheets without the worked example in front of them. The two-person
+  usability test in `validation/` is written for that question and has not been run.
+- The competitor list prices above were read on 23 November 2026. They move. They are not a price for this product.
