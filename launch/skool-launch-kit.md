@@ -2,7 +2,7 @@
 
 Copy you can paste. The product is free for everyone. Do not add a price, a checkout, or a testimonial you do not have.
 
-**Read this first:** `launch/skool-post-gxx-voice.md` — the gift post, with `[LIVE LINK]` and a `[your real story]` blank. Use that post. Use this file for the checklist, the replies, and the usability ask.
+**Read this first:** `launch/skool-post-gxx-voice.md` — the gift post, with `https://continuity-bible.vercel.app` and a `[your real story]` blank. Use that post. Use this file for the checklist, the replies, and the usability ask.
 
 The mug in these posts is the invented example in the book ("The Third Caller"), not a night from a real shoot. If you have a real drift story, it goes in `[your real story]` and nowhere else.
 

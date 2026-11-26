@@ -18,7 +18,7 @@ from my own shoot.
 
 So I wrote the habit down. It's free for everyone, there's no email wall, and it works with whatever you generate in:
 
-[LIVE LINK]
+https://continuity-bible.vercel.app
 
 What's on the page:
 
@@ -50,7 +50,7 @@ Gxx
 
 ---
 
-**Before you post:** put the real URL in `[LIVE LINK]`. `[your real story]` is a blank — write something that
+**Before you post:** put the real URL in `https://continuity-bible.vercel.app`. `[your real story]` is a blank — write something that
 actually happened to you, or delete the line. Do not fill it with the book's mug. That scene is invented.
 Post this once the Vercel page is live. If you post before then, cut item 1 and point people at the PDF.
 
@@ -72,7 +72,7 @@ preflight, one complete worked example.
 
 Free for everyone.
 
-[LIVE LINK]
+https://continuity-bible.vercel.app
 
 The paper does not stop the drift. It names what the next shot must keep. If you use it and a field is
 confusing, say so here.

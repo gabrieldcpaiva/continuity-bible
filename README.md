@@ -6,7 +6,7 @@ This is that piece of paper. A character sheet, a location sheet, a six-shot sta
 
 It is free for everyone. No account, no signup, no payment.
 
-**Use it free:** [LIVE LINK]
+**Use it free:** https://continuity-bible.vercel.app
 
 **Version 1.0 · November 2026**
 
@@ -63,7 +63,7 @@ node tools/tests/test-site.mjs
 
 ## Put the page online
 
-Vercel serves the `site/` folder as a static site. `vercel.json` points the output at that folder. No build command, no environment variables. See `site/README.md`. Replace `[LIVE LINK]` above once the deployment has a URL.
+Vercel serves the `site/` folder as a static site. `vercel.json` points the output at that folder. No build command, no environment variables. See `site/README.md`. Replace `https://continuity-bible.vercel.app` above once the deployment has a URL.
 
 ## Repository layout
 

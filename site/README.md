@@ -17,7 +17,7 @@ The repo root has a `vercel.json` that serves this folder as a static site: no f
 
 1. Import the Git repository in Vercel, or run `npx vercel` from the repo root.
 2. Leave the build settings on what `vercel.json` already says.
-3. Open the URL Vercel gives you. That URL replaces `[LIVE LINK]` in the README and the launch posts.
+3. Open the URL Vercel gives you. That URL replaces `https://continuity-bible.vercel.app` in the README and the launch posts.
 
 Nothing else to configure: no environment variables, no functions.
 
