@@ -79,8 +79,14 @@ requirements.txt             pinned build libraries
 vercel.json                  static deploy of site/
 ```
 
-## Licence
+## License
 
-The text, schema, example scene and diagrams are original. You may edit, print and reuse them for your own productions. You may not resell or redistribute them as a product. The embedded typefaces (Inter, Source Serif 4, JetBrains Mono) are under the SIL Open Font License, with licence texts in `assets/fonts/`.
+The guide, the PDF, the templates, the site, and the other written content are Copyright 2026 Gabriel Paiva, under the [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/). The legal code is in `LICENSE`. You may share and adapt that work for non-commercial use if you give credit. Don't sell it.
 
-A public licence for this repository — MIT, CC BY 4.0, or another choice — is not decided yet.
+The build and test scripts are Copyright (c) 2026 Gabriel Paiva, under the MIT licence in `LICENSE-CODE`:
+
+- `src/build_md.py`, `src/build_pdf.py`, `src/build_site.py`, `src/check_example.py`
+- `src/dsl.py`, `src/plan.py`, `src/typeset.py`
+- `tools/tests/test-form.mjs`, `tools/tests/test-site.mjs`
+
+`src/schema.py`, `src/example.py`, and `src/docs_00.py` through `src/docs_06.py` are the written source of the guide, so they stay under CC BY-NC 4.0. The typefaces in `assets/fonts/` stay under the SIL Open Font License.
